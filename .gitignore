@@ -1,0 +1,10 @@
+/.quarto/
+/_site/
+/.jupyter_cache/
+/.ipynb_checkpoints/
+/.DS_Store
+*.log
+/.venv/
+__pycache__/
+/.virtual_documents/
+/.idea/
