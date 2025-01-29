@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>anDATA !bene - Data Science Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .hero {
+            background-color: #2563eb;
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: white;
+            color: #2563eb;
+        }
+
+        .secondary {
+            border: 2px solid white;
+            color: white;
+        }
+
+        .projects {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card h3 {
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        .project-card a {
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .about {
+            background: #f3f4f6;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: #9ca3af;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>anDATA !bene</h1>
+        <p>Transforming Data into Insights</p>
+        <div class="button-group">
+            <a href="#projects" class="button primary">View Projects</a>
+            <a href="#contact" class="button secondary">Contact Us</a>
+        </div>
+    </div>
+
+    <section class="projects" id="projects">
+        <h2>Our Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>Data Analysis Pipeline</h3>
+                <p>Automated data processing and analysis pipeline for large-scale datasets</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="project-card">
+                <h3>ML Model Repository</h3>
+                <p>Collection of machine learning models for various prediction tasks</p>
+                <a href="#">Learn more →</a>
+            </div>
+            <div class="project-card">
+                <h3>Interactive Visualizations</h3>
+                <p>Dynamic data visualizations for complex datasets</p>
+                <a href="#">Learn more →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>About Us</h2>
+        <p>We are a passionate group of data scientists and analysts dedicated to solving complex problems through data-driven approaches. Our team combines expertise in machine learning, statistical analysis, and data visualization to deliver meaningful insights.</p>
+    </section>
+
+    <footer>
+        <h3>anDATA !bene</h3>
+        <p>© 2025 All rights reserved</p>
+    </footer>
+</body>
+</html>
