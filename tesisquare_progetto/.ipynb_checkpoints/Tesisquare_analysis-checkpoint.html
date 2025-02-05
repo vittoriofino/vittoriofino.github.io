@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>first of all we are going to import every library that we’ll need during the project</p>
-<div id="0ee3b7c4-934f-41c6-b21e-c5ad903be1bc" class="cell" data-execution_count="9">
+<div id="0ee3b7c4-934f-41c6-b21e-c5ad903be1bc" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">Libraries versions</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2004,8 +2004,8 @@ File 'final_delivery_data.csv' created successfully.</code></pre>
 <p>Analyzing these data we can understand that, in case the service is Via gomma or Corriere espresso, do not accept packages during the weekend. These data can be used to create the prediction algorithm.</p>
 </section>
 </section>
-<section id="we-divided-the-final-file-into-3-according-to-where-the-orders-start-and-arrive" class="level2">
-<h2 class="anchored" data-anchor-id="we-divided-the-final-file-into-3-according-to-where-the-orders-start-and-arrive">We divided the final file into 3 according to where the orders start and arrive</h2>
+<section id="we-divide-the-final-file-into-3-according-to-where-the-orders-start-and-arrive" class="level2">
+<h2 class="anchored" data-anchor-id="we-divide-the-final-file-into-3-according-to-where-the-orders-start-and-arrive">We divide the final file into 3 according to where the orders start and arrive</h2>
 <div id="5c64ddc2-2feb-4aeb-998e-7b553d3c3b00" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb226"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> split_csv(input_file):</span>
 <span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Read the CSV file</span></span>
@@ -2040,188 +2040,97 @@ Mixed deliveries: 574</code></pre>
 </div>
 </div>
 </section>
-<section id="distribution-of-lines-in-csv-files" class="level2">
-<h2 class="anchored" data-anchor-id="distribution-of-lines-in-csv-files">Distribution of Lines in CSV Files</h2>
-<div id="cf33b43e-c2fe-445b-97b5-49899ddf3c40" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb228"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the graphic style</span></span>
-<span id="cb228-2"><a href="#cb228-2" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'ggplot'</span>)</span>
-<span id="cb228-3"><a href="#cb228-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-4"><a href="#cb228-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define pastel colors</span></span>
-<span id="cb228-5"><a href="#cb228-5" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#FF9999'</span>, <span class="st">'#66B2FF'</span>, <span class="st">'#99FF99'</span>]</span>
-<span id="cb228-6"><a href="#cb228-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-7"><a href="#cb228-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Files to analyze</span></span>
-<span id="cb228-8"><a href="#cb228-8" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [</span>
-<span id="cb228-9"><a href="#cb228-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'final_delivery_data_mixed.csv'</span>,</span>
-<span id="cb228-10"><a href="#cb228-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'final_delivery_data_it_it.csv'</span>,</span>
-<span id="cb228-11"><a href="#cb228-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'final_delivery_data_us_us.csv'</span></span>
-<span id="cb228-12"><a href="#cb228-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb228-13"><a href="#cb228-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-14"><a href="#cb228-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary for line counting</span></span>
-<span id="cb228-15"><a href="#cb228-15" aria-hidden="true" tabindex="-1"></a>line_counts <span class="op">=</span> {}</span>
-<span id="cb228-16"><a href="#cb228-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-17"><a href="#cb228-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
-<span id="cb228-18"><a href="#cb228-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb228-19"><a href="#cb228-19" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span>
-<span id="cb228-20"><a href="#cb228-20" aria-hidden="true" tabindex="-1"></a>        line_counts[<span class="bu">file</span>] <span class="op">=</span> <span class="bu">len</span>(df)</span>
-<span id="cb228-21"><a href="#cb228-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
-<span id="cb228-22"><a href="#cb228-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"File not found: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb228-23"><a href="#cb228-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb228-24"><a href="#cb228-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-25"><a href="#cb228-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total lines</span></span>
-<span id="cb228-26"><a href="#cb228-26" aria-hidden="true" tabindex="-1"></a>total_lines <span class="op">=</span> <span class="bu">sum</span>(line_counts.values())</span>
-<span id="cb228-27"><a href="#cb228-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-28"><a href="#cb228-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Create readable labels</span></span>
-<span id="cb228-29"><a href="#cb228-29" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="bu">file</span>.replace(<span class="st">'final_delivery_data_'</span>, <span class="st">''</span>).replace(<span class="st">'.csv'</span>, <span class="st">''</span>).upper() <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files]</span>
-<span id="cb228-30"><a href="#cb228-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-31"><a href="#cb228-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Set font</span></span>
-<span id="cb228-32"><a href="#cb228-32" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'sans-serif'</span></span>
-<span id="cb228-33"><a href="#cb228-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-34"><a href="#cb228-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the chart</span></span>
-<span id="cb228-35"><a href="#cb228-35" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>), facecolor<span class="op">=</span><span class="st">'white'</span>)</span>
-<span id="cb228-36"><a href="#cb228-36" aria-hidden="true" tabindex="-1"></a>wedges, texts, autotexts <span class="op">=</span> ax.pie(</span>
-<span id="cb228-37"><a href="#cb228-37" aria-hidden="true" tabindex="-1"></a>    line_counts.values(),</span>
-<span id="cb228-38"><a href="#cb228-38" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>labels,</span>
-<span id="cb228-39"><a href="#cb228-39" aria-hidden="true" tabindex="-1"></a>    autopct<span class="op">=</span><span class="kw">lambda</span> pct: <span class="ss">f'</span><span class="sc">{</span>pct<span class="sc">:.1f}</span><span class="ss">%'</span>,</span>
-<span id="cb228-40"><a href="#cb228-40" aria-hidden="true" tabindex="-1"></a>    startangle<span class="op">=</span><span class="dv">90</span>,</span>
-<span id="cb228-41"><a href="#cb228-41" aria-hidden="true" tabindex="-1"></a>    colors<span class="op">=</span>colors,</span>
-<span id="cb228-42"><a href="#cb228-42" aria-hidden="true" tabindex="-1"></a>    explode<span class="op">=</span>[<span class="fl">0.05</span>] <span class="op">*</span> <span class="bu">len</span>(files),</span>
-<span id="cb228-43"><a href="#cb228-43" aria-hidden="true" tabindex="-1"></a>    wedgeprops<span class="op">=</span>{<span class="st">'edgecolor'</span>: <span class="st">'white'</span>, <span class="st">'linewidth'</span>: <span class="dv">2</span>}</span>
-<span id="cb228-44"><a href="#cb228-44" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb228-45"><a href="#cb228-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-46"><a href="#cb228-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Customize text</span></span>
-<span id="cb228-47"><a href="#cb228-47" aria-hidden="true" tabindex="-1"></a>plt.setp(autotexts, size<span class="op">=</span><span class="dv">9</span>, weight<span class="op">=</span><span class="st">"bold"</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
-<span id="cb228-48"><a href="#cb228-48" aria-hidden="true" tabindex="-1"></a>plt.setp(texts, size<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb228-49"><a href="#cb228-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-50"><a href="#cb228-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title</span></span>
-<span id="cb228-51"><a href="#cb228-51" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Distribution of Lines in CSV Files'</span>,</span>
-<span id="cb228-52"><a href="#cb228-52" aria-hidden="true" tabindex="-1"></a>          pad<span class="op">=</span><span class="dv">20</span>,</span>
-<span id="cb228-53"><a href="#cb228-53" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb228-54"><a href="#cb228-54" aria-hidden="true" tabindex="-1"></a>          fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb228-55"><a href="#cb228-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-56"><a href="#cb228-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legend</span></span>
-<span id="cb228-57"><a href="#cb228-57" aria-hidden="true" tabindex="-1"></a>ax.legend([<span class="ss">f'</span><span class="sc">{</span>label<span class="sc">}</span><span class="ch">\n</span><span class="ss">(</span><span class="sc">{</span>count<span class="sc">:,}</span><span class="ss"> lines, </span><span class="sc">{</span>(count<span class="op">/</span>total_lines<span class="op">*</span><span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%)'</span></span>
-<span id="cb228-58"><a href="#cb228-58" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> label, count <span class="kw">in</span> <span class="bu">zip</span>(labels, line_counts.values())],</span>
-<span id="cb228-59"><a href="#cb228-59" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">"Details"</span>,</span>
-<span id="cb228-60"><a href="#cb228-60" aria-hidden="true" tabindex="-1"></a>          loc<span class="op">=</span><span class="st">"center left"</span>,</span>
-<span id="cb228-61"><a href="#cb228-61" aria-hidden="true" tabindex="-1"></a>          bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</span>
-<span id="cb228-62"><a href="#cb228-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-63"><a href="#cb228-63" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'equal'</span>)</span>
-<span id="cb228-64"><a href="#cb228-64" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb228-65"><a href="#cb228-65" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Tesisquare_analysis_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 <section id="creation-of-the-travel-map" class="level2">
 <h2 class="anchored" data-anchor-id="creation-of-the-travel-map">Creation of the travel map</h2>
-<div id="22e05928-9c76-4586-a354-bc6263a42fbf" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb229"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_zipcode_coordinates(zipcode: <span class="bu">str</span>, country: <span class="bu">str</span>) <span class="op">-&gt;</span> Optional[Tuple[<span class="bu">float</span>, <span class="bu">float</span>]]:</span>
-<span id="cb229-2"><a href="#cb229-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb229-3"><a href="#cb229-3" aria-hidden="true" tabindex="-1"></a>        geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"delivery_route_mapper"</span>)</span>
-<span id="cb229-4"><a href="#cb229-4" aria-hidden="true" tabindex="-1"></a>        location <span class="op">=</span> geolocator.geocode(<span class="ss">f"</span><span class="sc">{</span>zipcode<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-5"><a href="#cb229-5" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-6"><a href="#cb229-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> location:</span>
-<span id="cb229-7"><a href="#cb229-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> (location.latitude, location.longitude)</span>
-<span id="cb229-8"><a href="#cb229-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb229-9"><a href="#cb229-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb229-10"><a href="#cb229-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error getting coordinates for </span><span class="sc">{</span>zipcode<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">str</span>(e)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-11"><a href="#cb229-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb229-12"><a href="#cb229-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb229-13"><a href="#cb229-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_map(csv_filename: <span class="bu">str</span>):</span>
-<span id="cb229-14"><a href="#cb229-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb229-15"><a href="#cb229-15" aria-hidden="true" tabindex="-1"></a><span class="co">    Creates a map visualization from delivery data, skipping specific ZIP codes</span></span>
-<span id="cb229-16"><a href="#cb229-16" aria-hidden="true" tabindex="-1"></a><span class="co">    that were incorrectly mapped to non-US locations despite being US addresses.</span></span>
-<span id="cb229-17"><a href="#cb229-17" aria-hidden="true" tabindex="-1"></a><span class="co">   </span></span>
-<span id="cb229-18"><a href="#cb229-18" aria-hidden="true" tabindex="-1"></a><span class="co">    ZIP codes 02476, 02482, and 02116 are Massachusetts ZIP codes that were</span></span>
-<span id="cb229-19"><a href="#cb229-19" aria-hidden="true" tabindex="-1"></a><span class="co">    incorrectly geocoded to other countries, so we skip them to maintain data accuracy.</span></span>
-<span id="cb229-20"><a href="#cb229-20" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb229-21"><a href="#cb229-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ZIP codes to skip due to incorrect geocoding outside the USA</span></span>
-<span id="cb229-22"><a href="#cb229-22" aria-hidden="true" tabindex="-1"></a>    skip_zipcodes <span class="op">=</span> {<span class="st">'2476'</span>, <span class="st">'2482.0'</span>, <span class="st">'2116.0'</span>}</span>
-<span id="cb229-23"><a href="#cb229-23" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb229-24"><a href="#cb229-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb229-25"><a href="#cb229-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Read only first 40 rows as a sample</span></span>
-<span id="cb229-26"><a href="#cb229-26" aria-hidden="true" tabindex="-1"></a>        dataset <span class="op">=</span> pd.read_csv(csv_filename, nrows<span class="op">=</span><span class="dv">40</span>)</span>
-<span id="cb229-27"><a href="#cb229-27" aria-hidden="true" tabindex="-1"></a>        routes <span class="op">=</span> []</span>
-<span id="cb229-28"><a href="#cb229-28" aria-hidden="true" tabindex="-1"></a>        cities <span class="op">=</span> {}</span>
-<span id="cb229-29"><a href="#cb229-29" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-30"><a href="#cb229-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Progress bar for geocoding</span></span>
-<span id="cb229-31"><a href="#cb229-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _, row <span class="kw">in</span> tqdm(dataset.iterrows(), total<span class="op">=</span>dataset.shape[<span class="dv">0</span>], desc<span class="op">=</span><span class="ss">f"Processing </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">"</span>):</span>
-<span id="cb229-32"><a href="#cb229-32" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Skip problematic ZIP codes that get mapped to wrong countries</span></span>
-<span id="cb229-33"><a href="#cb229-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>]) <span class="kw">in</span> skip_zipcodes <span class="kw">or</span></span>
-<span id="cb229-34"><a href="#cb229-34" aria-hidden="true" tabindex="-1"></a>                <span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>]) <span class="kw">in</span> skip_zipcodes):</span>
-<span id="cb229-35"><a href="#cb229-35" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
-<span id="cb229-36"><a href="#cb229-36" aria-hidden="true" tabindex="-1"></a>               </span>
-<span id="cb229-37"><a href="#cb229-37" aria-hidden="true" tabindex="-1"></a>            departure <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>]), row[<span class="st">"DEPARTURE_COUNTRY"</span>])</span>
-<span id="cb229-38"><a href="#cb229-38" aria-hidden="true" tabindex="-1"></a>            arrival <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>]), row[<span class="st">"ARRIVAL_COUNTRY"</span>])</span>
-<span id="cb229-39"><a href="#cb229-39" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb229-40"><a href="#cb229-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrival <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> departure <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb229-41"><a href="#cb229-41" aria-hidden="true" tabindex="-1"></a>                route <span class="op">=</span> [departure, arrival]</span>
-<span id="cb229-42"><a href="#cb229-42" aria-hidden="true" tabindex="-1"></a>                routes.append(route)</span>
-<span id="cb229-43"><a href="#cb229-43" aria-hidden="true" tabindex="-1"></a>                cities[<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>])] <span class="op">=</span> departure</span>
-<span id="cb229-44"><a href="#cb229-44" aria-hidden="true" tabindex="-1"></a>                cities[<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>])] <span class="op">=</span> arrival</span>
-<span id="cb229-45"><a href="#cb229-45" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb229-46"><a href="#cb229-46" aria-hidden="true" tabindex="-1"></a>            time.sleep(<span class="dv">1</span>)  <span class="co"># Prevent overwhelming the geocoding service</span></span>
-<span id="cb229-47"><a href="#cb229-47" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-48"><a href="#cb229-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create map centered on a middle point</span></span>
-<span id="cb229-49"><a href="#cb229-49" aria-hidden="true" tabindex="-1"></a>        map_vis <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="dv">45</span>, <span class="dv">10</span>], zoom_start<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb229-50"><a href="#cb229-50" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-51"><a href="#cb229-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add delivery routes</span></span>
-<span id="cb229-52"><a href="#cb229-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> route <span class="kw">in</span> tqdm(routes, desc<span class="op">=</span><span class="st">"Adding Routes"</span>):</span>
-<span id="cb229-53"><a href="#cb229-53" aria-hidden="true" tabindex="-1"></a>            folium.PolyLine(route, color<span class="op">=</span><span class="st">"blue"</span>, weight<span class="op">=</span><span class="dv">2</span>, opacity<span class="op">=</span><span class="fl">0.7</span>).add_to(map_vis)</span>
-<span id="cb229-54"><a href="#cb229-54" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-55"><a href="#cb229-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add city markers</span></span>
-<span id="cb229-56"><a href="#cb229-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> name, coord <span class="kw">in</span> tqdm(cities.items(), desc<span class="op">=</span><span class="st">"Adding Markers"</span>):</span>
-<span id="cb229-57"><a href="#cb229-57" aria-hidden="true" tabindex="-1"></a>            folium.Marker(coord, popup<span class="op">=</span>name, icon<span class="op">=</span>folium.Icon(color<span class="op">=</span><span class="st">"red"</span>)).add_to(map_vis)</span>
-<span id="cb229-58"><a href="#cb229-58" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-59"><a href="#cb229-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Save map to HTML file</span></span>
-<span id="cb229-60"><a href="#cb229-60" aria-hidden="true" tabindex="-1"></a>        output_name <span class="op">=</span> os.path.splitext(csv_filename)[<span class="dv">0</span>] <span class="op">+</span> <span class="st">'_sample.html'</span></span>
-<span id="cb229-61"><a href="#cb229-61" aria-hidden="true" tabindex="-1"></a>        map_vis.save(output_name)</span>
-<span id="cb229-62"><a href="#cb229-62" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Sample map successfully created: </span><span class="sc">{</span>output_name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-63"><a href="#cb229-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb229-64"><a href="#cb229-64" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb229-65"><a href="#cb229-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb229-66"><a href="#cb229-66" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error processing </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-67"><a href="#cb229-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb229-68"><a href="#cb229-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb229-69"><a href="#cb229-69" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb229-70"><a href="#cb229-70" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> [</span>
-<span id="cb229-71"><a href="#cb229-71" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_it_it.csv'</span>,</span>
-<span id="cb229-72"><a href="#cb229-72" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_us_us.csv'</span>,</span>
-<span id="cb229-73"><a href="#cb229-73" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_mixed.csv'</span></span>
-<span id="cb229-74"><a href="#cb229-74" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb229-75"><a href="#cb229-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
-<span id="cb229-76"><a href="#cb229-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.exists(<span class="bu">file</span>):</span>
-<span id="cb229-77"><a href="#cb229-77" aria-hidden="true" tabindex="-1"></a>            draw_map(<span class="bu">file</span>)</span>
-<span id="cb229-78"><a href="#cb229-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb229-79"><a href="#cb229-79" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"File not found: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-80"><a href="#cb229-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb229-81"><a href="#cb229-81" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb229-82"><a href="#cb229-82" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="22e05928-9c76-4586-a354-bc6263a42fbf" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb228"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_zipcode_coordinates(zipcode: <span class="bu">str</span>, country: <span class="bu">str</span>) <span class="op">-&gt;</span> Optional[Tuple[<span class="bu">float</span>, <span class="bu">float</span>]]:</span>
+<span id="cb228-2"><a href="#cb228-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb228-3"><a href="#cb228-3" aria-hidden="true" tabindex="-1"></a>        geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"delivery_route_mapper"</span>)</span>
+<span id="cb228-4"><a href="#cb228-4" aria-hidden="true" tabindex="-1"></a>        location <span class="op">=</span> geolocator.geocode(<span class="ss">f"</span><span class="sc">{</span>zipcode<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb228-5"><a href="#cb228-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb228-6"><a href="#cb228-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> location:</span>
+<span id="cb228-7"><a href="#cb228-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> (location.latitude, location.longitude)</span>
+<span id="cb228-8"><a href="#cb228-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb228-9"><a href="#cb228-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb228-10"><a href="#cb228-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error getting coordinates for </span><span class="sc">{</span>zipcode<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>country<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">str</span>(e)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb228-11"><a href="#cb228-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb228-12"><a href="#cb228-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-13"><a href="#cb228-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> disegnaMappa(nomeFilecsv: <span class="bu">str</span>):</span>
+<span id="cb228-14"><a href="#cb228-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb228-15"><a href="#cb228-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Read only first 50 rows</span></span>
+<span id="cb228-16"><a href="#cb228-16" aria-hidden="true" tabindex="-1"></a>        dataSet <span class="op">=</span> pd.read_csv(nomeFilecsv, nrows<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb228-17"><a href="#cb228-17" aria-hidden="true" tabindex="-1"></a>        viaggi <span class="op">=</span> []</span>
+<span id="cb228-18"><a href="#cb228-18" aria-hidden="true" tabindex="-1"></a>        citta <span class="op">=</span> {}</span>
+<span id="cb228-19"><a href="#cb228-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb228-20"><a href="#cb228-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Progress bar for geocoding</span></span>
+<span id="cb228-21"><a href="#cb228-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _, row <span class="kw">in</span> tqdm(dataSet.iterrows(), total<span class="op">=</span>dataSet.shape[<span class="dv">0</span>], desc<span class="op">=</span><span class="ss">f"Processing </span><span class="sc">{</span>nomeFilecsv<span class="sc">}</span><span class="ss">"</span>):</span>
+<span id="cb228-22"><a href="#cb228-22" aria-hidden="true" tabindex="-1"></a>            partenza <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>]), row[<span class="st">"DEPARTURE_COUNTRY"</span>])</span>
+<span id="cb228-23"><a href="#cb228-23" aria-hidden="true" tabindex="-1"></a>            arrivo <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>]), row[<span class="st">"ARRIVAL_COUNTRY"</span>])</span>
+<span id="cb228-24"><a href="#cb228-24" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb228-25"><a href="#cb228-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrivo <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> partenza <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb228-26"><a href="#cb228-26" aria-hidden="true" tabindex="-1"></a>                tratta <span class="op">=</span> [partenza, arrivo]</span>
+<span id="cb228-27"><a href="#cb228-27" aria-hidden="true" tabindex="-1"></a>                viaggi.append(tratta)</span>
+<span id="cb228-28"><a href="#cb228-28" aria-hidden="true" tabindex="-1"></a>                citta[<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>])] <span class="op">=</span> partenza</span>
+<span id="cb228-29"><a href="#cb228-29" aria-hidden="true" tabindex="-1"></a>                citta[<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>])] <span class="op">=</span> arrivo</span>
+<span id="cb228-30"><a href="#cb228-30" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb228-31"><a href="#cb228-31" aria-hidden="true" tabindex="-1"></a>            time.sleep(<span class="dv">1</span>)  <span class="co"># Prevent overwhelming the geocoding service</span></span>
+<span id="cb228-32"><a href="#cb228-32" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb228-33"><a href="#cb228-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create map</span></span>
+<span id="cb228-34"><a href="#cb228-34" aria-hidden="true" tabindex="-1"></a>        mappa <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="dv">45</span>, <span class="dv">10</span>], zoom_start<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb228-35"><a href="#cb228-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb228-36"><a href="#cb228-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add routes</span></span>
+<span id="cb228-37"><a href="#cb228-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> viaggio <span class="kw">in</span> tqdm(viaggi, desc<span class="op">=</span><span class="st">"Adding Routes"</span>):</span>
+<span id="cb228-38"><a href="#cb228-38" aria-hidden="true" tabindex="-1"></a>            folium.PolyLine(viaggio, color<span class="op">=</span><span class="st">"blue"</span>, weight<span class="op">=</span><span class="dv">2</span>, opacity<span class="op">=</span><span class="fl">0.7</span>).add_to(mappa)</span>
+<span id="cb228-39"><a href="#cb228-39" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb228-40"><a href="#cb228-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add markers</span></span>
+<span id="cb228-41"><a href="#cb228-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> nome, coord <span class="kw">in</span> tqdm(citta.items(), desc<span class="op">=</span><span class="st">"Adding Markers"</span>):</span>
+<span id="cb228-42"><a href="#cb228-42" aria-hidden="true" tabindex="-1"></a>            folium.Marker(coord, popup<span class="op">=</span>nome, icon<span class="op">=</span>folium.Icon(color<span class="op">=</span><span class="st">"red"</span>)).add_to(mappa)</span>
+<span id="cb228-43"><a href="#cb228-43" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb228-44"><a href="#cb228-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Save map in current directory</span></span>
+<span id="cb228-45"><a href="#cb228-45" aria-hidden="true" tabindex="-1"></a>        output_name <span class="op">=</span> os.path.splitext(nomeFilecsv)[<span class="dv">0</span>] <span class="op">+</span> <span class="st">'_sample.html'</span></span>
+<span id="cb228-46"><a href="#cb228-46" aria-hidden="true" tabindex="-1"></a>        mappa.save(output_name)</span>
+<span id="cb228-47"><a href="#cb228-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Sample map successfully created: </span><span class="sc">{</span>output_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb228-48"><a href="#cb228-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb228-49"><a href="#cb228-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb228-50"><a href="#cb228-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb228-51"><a href="#cb228-51" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error processing </span><span class="sc">{</span>nomeFilecsv<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb228-52"><a href="#cb228-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb228-53"><a href="#cb228-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-54"><a href="#cb228-54" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb228-55"><a href="#cb228-55" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> [</span>
+<span id="cb228-56"><a href="#cb228-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_it_it.csv'</span>,</span>
+<span id="cb228-57"><a href="#cb228-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_us_us.csv'</span>, </span>
+<span id="cb228-58"><a href="#cb228-58" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_mixed.csv'</span></span>
+<span id="cb228-59"><a href="#cb228-59" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb228-60"><a href="#cb228-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-61"><a href="#cb228-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
+<span id="cb228-62"><a href="#cb228-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.exists(<span class="bu">file</span>):</span>
+<span id="cb228-63"><a href="#cb228-63" aria-hidden="true" tabindex="-1"></a>            disegnaMappa(<span class="bu">file</span>)</span>
+<span id="cb228-64"><a href="#cb228-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb228-65"><a href="#cb228-65" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"File not found: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb228-66"><a href="#cb228-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-67"><a href="#cb228-67" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb228-68"><a href="#cb228-68" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Processing final_delivery_data_it_it.csv: 100%|██████████████████████████████████| 40/40 [02:13&lt;00:00,  3.33s/it]
-Adding Routes: 100%|██████████████████████████████████████████████████████████| 40/40 [00:00&lt;00:00, 41374.15it/s]
-Adding Markers: 100%|█████████████████████████████████████████████████████████| 27/27 [00:00&lt;00:00, 12976.53it/s]</code></pre>
+<pre><code>Processing final_delivery_data_it_it.csv: 100%|██████████| 50/50 [02:09&lt;00:00,  2.59s/it]
+Adding Routes: 100%|██████████| 50/50 [00:00&lt;00:00, 46644.84it/s]
+Adding Markers: 100%|██████████| 36/36 [00:00&lt;00:00, 18450.02it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample map successfully created: final_delivery_data_it_it_sample.html</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Processing final_delivery_data_us_us.csv: 100%|██████████████████████████████████| 40/40 [02:00&lt;00:00,  3.01s/it]
-Adding Routes: 100%|██████████████████████████████████████████████████████████| 38/38 [00:00&lt;00:00, 29897.50it/s]
-Adding Markers: 100%|█████████████████████████████████████████████████████████| 49/49 [00:00&lt;00:00, 23981.43it/s]</code></pre>
+<pre><code>Processing final_delivery_data_us_us.csv: 100%|██████████| 50/50 [02:13&lt;00:00,  2.68s/it]
+Adding Routes: 100%|██████████| 50/50 [00:00&lt;00:00, 53052.16it/s]
+Adding Markers: 100%|██████████| 59/59 [00:00&lt;00:00, 8544.73it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample map successfully created: final_delivery_data_us_us_sample.html</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Processing final_delivery_data_mixed.csv: 100%|██████████████████████████████████| 40/40 [01:59&lt;00:00,  2.99s/it]
-Adding Routes: 100%|██████████████████████████████████████████████████████████| 39/39 [00:00&lt;00:00, 39170.94it/s]
-Adding Markers: 100%|█████████████████████████████████████████████████████████| 39/39 [00:00&lt;00:00, 17828.65it/s]</code></pre>
+<pre><code>Processing final_delivery_data_mixed.csv: 100%|██████████| 50/50 [02:13&lt;00:00,  2.66s/it]
+Adding Routes: 100%|██████████| 50/50 [00:00&lt;00:00, 47814.68it/s]
+Adding Markers: 100%|██████████| 49/49 [00:00&lt;00:00, 25530.55it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample map successfully created: final_delivery_data_mixed_sample.html</code></pre>
@@ -2231,236 +2140,236 @@ Adding Markers: 100%|███████████████████�
 </div>
 </div>
 </section>
-<section id="finally-we-created-a-lm-to-predict-the-distance-in-km-and-delivery-time" class="level2">
-<h2 class="anchored" data-anchor-id="finally-we-created-a-lm-to-predict-the-distance-in-km-and-delivery-time">Finally we created a LM to predict the distance in km and delivery time</h2>
+<section id="finally-we-create-a-code-to-predict-the-distance-in-km-and-delivery-time" class="level2">
+<h2 class="anchored" data-anchor-id="finally-we-create-a-code-to-predict-the-distance-in-km-and-delivery-time">Finally we create a code to predict the distance in km and delivery time</h2>
 <div id="a009274d-8c90-463b-8701-6dbacad9b7be" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb237"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb237-1"><a href="#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DeliveryPredictor:</span>
-<span id="cb237-2"><a href="#cb237-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb237-3"><a href="#cb237-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_service <span class="op">=</span> LabelEncoder()</span>
-<span id="cb237-4"><a href="#cb237-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_vehicle <span class="op">=</span> LabelEncoder()</span>
-<span id="cb237-5"><a href="#cb237-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_dep_country <span class="op">=</span> LabelEncoder()</span>
-<span id="cb237-6"><a href="#cb237-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_arr_country <span class="op">=</span> LabelEncoder()</span>
-<span id="cb237-7"><a href="#cb237-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_dep_zip <span class="op">=</span> LabelEncoder()</span>
-<span id="cb237-8"><a href="#cb237-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_arr_zip <span class="op">=</span> LabelEncoder()</span>
-<span id="cb237-9"><a href="#cb237-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.scaler <span class="op">=</span> RobustScaler()</span>
-<span id="cb237-10"><a href="#cb237-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.imputer <span class="op">=</span> SimpleImputer(strategy<span class="op">=</span><span class="st">'median'</span>)</span>
-<span id="cb237-11"><a href="#cb237-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.distance_model <span class="op">=</span> GradientBoostingRegressor(</span>
-<span id="cb237-12"><a href="#cb237-12" aria-hidden="true" tabindex="-1"></a>            n_estimators<span class="op">=</span><span class="dv">200</span>,</span>
-<span id="cb237-13"><a href="#cb237-13" aria-hidden="true" tabindex="-1"></a>            learning_rate<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb237-14"><a href="#cb237-14" aria-hidden="true" tabindex="-1"></a>            max_depth<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb237-15"><a href="#cb237-15" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span><span class="dv">42</span></span>
-<span id="cb237-16"><a href="#cb237-16" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb237-17"><a href="#cb237-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.time_model <span class="op">=</span> GradientBoostingRegressor(</span>
-<span id="cb237-18"><a href="#cb237-18" aria-hidden="true" tabindex="-1"></a>            n_estimators<span class="op">=</span><span class="dv">200</span>,</span>
-<span id="cb237-19"><a href="#cb237-19" aria-hidden="true" tabindex="-1"></a>            learning_rate<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb237-20"><a href="#cb237-20" aria-hidden="true" tabindex="-1"></a>            max_depth<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb237-21"><a href="#cb237-21" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span><span class="dv">42</span></span>
-<span id="cb237-22"><a href="#cb237-22" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb237-23"><a href="#cb237-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.unique_values <span class="op">=</span> {}</span>
-<span id="cb237-24"><a href="#cb237-24" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-25"><a href="#cb237-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_data(<span class="va">self</span>, df):</span>
-<span id="cb237-26"><a href="#cb237-26" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> df.copy()</span>
-<span id="cb237-27"><a href="#cb237-27" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-28"><a href="#cb237-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Clean zip codes</span></span>
-<span id="cb237-29"><a href="#cb237-29" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'DEPARTURE_ZIPCODE'</span>].fillna(<span class="st">'00000'</span>)</span>
-<span id="cb237-30"><a href="#cb237-30" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'ARRIVAL_ZIPCODE'</span>].fillna(<span class="st">'00000'</span>)</span>
-<span id="cb237-31"><a href="#cb237-31" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'DEPARTURE_ZIPCODE'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.replace(<span class="st">'.0'</span>, <span class="st">''</span>).<span class="bu">str</span>.zfill(<span class="dv">5</span>)</span>
-<span id="cb237-32"><a href="#cb237-32" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'ARRIVAL_ZIPCODE'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.replace(<span class="st">'.0'</span>, <span class="st">''</span>).<span class="bu">str</span>.zfill(<span class="dv">5</span>)</span>
-<span id="cb237-33"><a href="#cb237-33" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-34"><a href="#cb237-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Remove rows with NaN in critical columns</span></span>
-<span id="cb237-35"><a href="#cb237-35" aria-hidden="true" tabindex="-1"></a>        critical_columns <span class="op">=</span> [<span class="st">'DELIVERY_TIME_HH'</span>, <span class="st">'DECLARED_DISTANCE_KM'</span>, <span class="st">'SERVICETYPE'</span>, <span class="st">'VEHICLETYPE'</span>, </span>
-<span id="cb237-36"><a href="#cb237-36" aria-hidden="true" tabindex="-1"></a>                            <span class="st">'DEPARTURE_COUNTRY'</span>, <span class="st">'ARRIVAL_COUNTRY'</span>, <span class="st">'WDAY'</span>]</span>
-<span id="cb237-37"><a href="#cb237-37" aria-hidden="true" tabindex="-1"></a>        df.dropna(subset<span class="op">=</span>critical_columns, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb237-38"><a href="#cb237-38" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-39"><a href="#cb237-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Remove outliers from delivery time</span></span>
-<span id="cb237-40"><a href="#cb237-40" aria-hidden="true" tabindex="-1"></a>        q1 <span class="op">=</span> df[<span class="st">'DELIVERY_TIME_HH'</span>].quantile(<span class="fl">0.25</span>)</span>
-<span id="cb237-41"><a href="#cb237-41" aria-hidden="true" tabindex="-1"></a>        q3 <span class="op">=</span> df[<span class="st">'DELIVERY_TIME_HH'</span>].quantile(<span class="fl">0.75</span>)</span>
-<span id="cb237-42"><a href="#cb237-42" aria-hidden="true" tabindex="-1"></a>        iqr <span class="op">=</span> q3 <span class="op">-</span> q1</span>
-<span id="cb237-43"><a href="#cb237-43" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> df[</span>
-<span id="cb237-44"><a href="#cb237-44" aria-hidden="true" tabindex="-1"></a>            (df[<span class="st">'DELIVERY_TIME_HH'</span>] <span class="op">&gt;=</span> q1 <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> iqr) <span class="op">&amp;</span> </span>
-<span id="cb237-45"><a href="#cb237-45" aria-hidden="true" tabindex="-1"></a>            (df[<span class="st">'DELIVERY_TIME_HH'</span>] <span class="op">&lt;=</span> q3 <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> iqr)</span>
-<span id="cb237-46"><a href="#cb237-46" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb237-47"><a href="#cb237-47" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-48"><a href="#cb237-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add derived features</span></span>
-<span id="cb237-49"><a href="#cb237-49" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'SAME_COUNTRY'</span>] <span class="op">=</span> (df[<span class="st">'DEPARTURE_COUNTRY'</span>] <span class="op">==</span> df[<span class="st">'ARRIVAL_COUNTRY'</span>]).astype(<span class="bu">int</span>)</span>
-<span id="cb237-50"><a href="#cb237-50" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-51"><a href="#cb237-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Encode categorical variables</span></span>
-<span id="cb237-52"><a href="#cb237-52" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'SERVICETYPE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_service.fit_transform(df[<span class="st">'SERVICETYPE'</span>])</span>
-<span id="cb237-53"><a href="#cb237-53" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'VEHICLETYPE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_vehicle.fit_transform(df[<span class="st">'VEHICLETYPE'</span>])</span>
-<span id="cb237-54"><a href="#cb237-54" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_COUNTRY_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_dep_country.fit_transform(df[<span class="st">'DEPARTURE_COUNTRY'</span>])</span>
-<span id="cb237-55"><a href="#cb237-55" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_COUNTRY_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_arr_country.fit_transform(df[<span class="st">'ARRIVAL_COUNTRY'</span>])</span>
-<span id="cb237-56"><a href="#cb237-56" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_ZIPCODE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_dep_zip.fit_transform(df[<span class="st">'DEPARTURE_ZIPCODE'</span>])</span>
-<span id="cb237-57"><a href="#cb237-57" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_ZIPCODE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_arr_zip.fit_transform(df[<span class="st">'ARRIVAL_ZIPCODE'</span>])</span>
-<span id="cb237-58"><a href="#cb237-58" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-59"><a href="#cb237-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Store unique values</span></span>
-<span id="cb237-60"><a href="#cb237-60" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.unique_values <span class="op">=</span> {</span>
-<span id="cb237-61"><a href="#cb237-61" aria-hidden="true" tabindex="-1"></a>            <span class="st">'service_types'</span>: df[<span class="st">'SERVICETYPE'</span>].unique(),</span>
-<span id="cb237-62"><a href="#cb237-62" aria-hidden="true" tabindex="-1"></a>            <span class="st">'vehicle_types'</span>: df[<span class="st">'VEHICLETYPE'</span>].unique(),</span>
-<span id="cb237-63"><a href="#cb237-63" aria-hidden="true" tabindex="-1"></a>            <span class="st">'departure_countries'</span>: df[<span class="st">'DEPARTURE_COUNTRY'</span>].unique(),</span>
-<span id="cb237-64"><a href="#cb237-64" aria-hidden="true" tabindex="-1"></a>            <span class="st">'arrival_countries'</span>: df[<span class="st">'ARRIVAL_COUNTRY'</span>].unique(),</span>
-<span id="cb237-65"><a href="#cb237-65" aria-hidden="true" tabindex="-1"></a>            <span class="st">'departure_zipcodes'</span>: df[<span class="st">'DEPARTURE_ZIPCODE'</span>].unique(),</span>
-<span id="cb237-66"><a href="#cb237-66" aria-hidden="true" tabindex="-1"></a>            <span class="st">'arrival_zipcodes'</span>: df[<span class="st">'ARRIVAL_ZIPCODE'</span>].unique()</span>
-<span id="cb237-67"><a href="#cb237-67" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb237-68"><a href="#cb237-68" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-69"><a href="#cb237-69" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare features</span></span>
-<span id="cb237-70"><a href="#cb237-70" aria-hidden="true" tabindex="-1"></a>        features <span class="op">=</span> [</span>
-<span id="cb237-71"><a href="#cb237-71" aria-hidden="true" tabindex="-1"></a>            <span class="st">'SERVICETYPE_encoded'</span>, <span class="st">'VEHICLETYPE_encoded'</span>, </span>
-<span id="cb237-72"><a href="#cb237-72" aria-hidden="true" tabindex="-1"></a>            <span class="st">'DEPARTURE_COUNTRY_encoded'</span>, <span class="st">'ARRIVAL_COUNTRY_encoded'</span>,</span>
-<span id="cb237-73"><a href="#cb237-73" aria-hidden="true" tabindex="-1"></a>            <span class="st">'DEPARTURE_ZIPCODE_encoded'</span>, <span class="st">'ARRIVAL_ZIPCODE_encoded'</span>, </span>
-<span id="cb237-74"><a href="#cb237-74" aria-hidden="true" tabindex="-1"></a>            <span class="st">'WDAY'</span>, <span class="st">'SAME_COUNTRY'</span></span>
-<span id="cb237-75"><a href="#cb237-75" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb237-76"><a href="#cb237-76" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-77"><a href="#cb237-77" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add DISTANCE_ENCODED</span></span>
-<span id="cb237-78"><a href="#cb237-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'DECLARED_DISTANCE_KM'</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb237-79"><a href="#cb237-79" aria-hidden="true" tabindex="-1"></a>            df[<span class="st">'DISTANCE_ENCODED'</span>] <span class="op">=</span> <span class="va">self</span>.scaler.fit_transform(df[[<span class="st">'DECLARED_DISTANCE_KM'</span>]])</span>
-<span id="cb237-80"><a href="#cb237-80" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb237-81"><a href="#cb237-81" aria-hidden="true" tabindex="-1"></a>            df[<span class="st">'DISTANCE_ENCODED'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb237-82"><a href="#cb237-82" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-83"><a href="#cb237-83" aria-hidden="true" tabindex="-1"></a>        features.append(<span class="st">'DISTANCE_ENCODED'</span>)</span>
-<span id="cb237-84"><a href="#cb237-84" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-85"><a href="#cb237-85" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare X with imputation</span></span>
-<span id="cb237-86"><a href="#cb237-86" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> df[features].values</span>
-<span id="cb237-87"><a href="#cb237-87" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> <span class="va">self</span>.imputer.fit_transform(X)  <span class="co"># Impute missing values</span></span>
-<span id="cb237-88"><a href="#cb237-88" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> <span class="va">self</span>.scaler.fit_transform(X)</span>
-<span id="cb237-89"><a href="#cb237-89" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-90"><a href="#cb237-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> X, df</span>
-<span id="cb237-91"><a href="#cb237-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-92"><a href="#cb237-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> train(<span class="va">self</span>, data_path):</span>
-<span id="cb237-93"><a href="#cb237-93" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Load data</span></span>
-<span id="cb237-94"><a href="#cb237-94" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.read_csv(data_path)</span>
-<span id="cb237-95"><a href="#cb237-95" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-96"><a href="#cb237-96" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare features and targets</span></span>
-<span id="cb237-97"><a href="#cb237-97" aria-hidden="true" tabindex="-1"></a>        X, df_cleaned <span class="op">=</span> <span class="va">self</span>.prepare_data(df)</span>
-<span id="cb237-98"><a href="#cb237-98" aria-hidden="true" tabindex="-1"></a>        y_distance <span class="op">=</span> df_cleaned[<span class="st">'DECLARED_DISTANCE_KM'</span>].values</span>
-<span id="cb237-99"><a href="#cb237-99" aria-hidden="true" tabindex="-1"></a>        y_time <span class="op">=</span> df_cleaned[<span class="st">'DELIVERY_TIME_HH'</span>].values</span>
-<span id="cb237-100"><a href="#cb237-100" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-101"><a href="#cb237-101" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Normalize delivery time</span></span>
-<span id="cb237-102"><a href="#cb237-102" aria-hidden="true" tabindex="-1"></a>        y_time <span class="op">=</span> np.minimum(y_time, <span class="dv">72</span>)</span>
-<span id="cb237-103"><a href="#cb237-103" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-104"><a href="#cb237-104" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Split data</span></span>
-<span id="cb237-105"><a href="#cb237-105" aria-hidden="true" tabindex="-1"></a>        X_train, X_test, y_dist_train, y_dist_test, y_time_train, y_time_test <span class="op">=</span> train_test_split(</span>
-<span id="cb237-106"><a href="#cb237-106" aria-hidden="true" tabindex="-1"></a>            X, y_distance, y_time, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
-<span id="cb237-107"><a href="#cb237-107" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb237-108"><a href="#cb237-108" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-109"><a href="#cb237-109" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Train models</span></span>
-<span id="cb237-110"><a href="#cb237-110" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.distance_model.fit(X_train, y_dist_train)</span>
-<span id="cb237-111"><a href="#cb237-111" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.time_model.fit(X_train, y_time_train)</span>
-<span id="cb237-112"><a href="#cb237-112" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-113"><a href="#cb237-113" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate accuracy</span></span>
-<span id="cb237-114"><a href="#cb237-114" aria-hidden="true" tabindex="-1"></a>        dist_accuracy <span class="op">=</span> r2_score(y_dist_test, <span class="va">self</span>.distance_model.predict(X_test))</span>
-<span id="cb237-115"><a href="#cb237-115" aria-hidden="true" tabindex="-1"></a>        time_accuracy <span class="op">=</span> r2_score(y_time_test, <span class="va">self</span>.time_model.predict(X_test))</span>
-<span id="cb237-116"><a href="#cb237-116" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-117"><a href="#cb237-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> dist_accuracy, time_accuracy</span>
-<span id="cb237-118"><a href="#cb237-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-119"><a href="#cb237-119" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> custom_round(<span class="va">self</span>, number):</span>
-<span id="cb237-120"><a href="#cb237-120" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Custom rounding function based on decimal part"""</span></span>
-<span id="cb237-121"><a href="#cb237-121" aria-hidden="true" tabindex="-1"></a>        decimal_part <span class="op">=</span> number <span class="op">%</span> <span class="dv">1</span></span>
-<span id="cb237-122"><a href="#cb237-122" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> decimal_part <span class="op">&gt;=</span> <span class="fl">0.5</span>:</span>
-<span id="cb237-123"><a href="#cb237-123" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> np.ceil(number)</span>
-<span id="cb237-124"><a href="#cb237-124" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.floor(number)</span>
-<span id="cb237-125"><a href="#cb237-125" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb237-126"><a href="#cb237-126" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, service_type, vehicle_type, departure_country, arrival_country,</span>
-<span id="cb237-127"><a href="#cb237-127" aria-hidden="true" tabindex="-1"></a>                departure_zipcode, arrival_zipcode, departure_date):</span>
-<span id="cb237-128"><a href="#cb237-128" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Convert departure_date to weekday</span></span>
-<span id="cb237-129"><a href="#cb237-129" aria-hidden="true" tabindex="-1"></a>        departure_dt <span class="op">=</span> datetime.strptime(departure_date, <span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)</span>
-<span id="cb237-130"><a href="#cb237-130" aria-hidden="true" tabindex="-1"></a>        wday <span class="op">=</span> departure_dt.weekday()</span>
-<span id="cb237-131"><a href="#cb237-131" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-132"><a href="#cb237-132" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Convert zip codes to strings with leading zeros</span></span>
-<span id="cb237-133"><a href="#cb237-133" aria-hidden="true" tabindex="-1"></a>        departure_zipcode <span class="op">=</span> <span class="bu">str</span>(departure_zipcode).replace(<span class="st">'.0'</span>, <span class="st">''</span>).zfill(<span class="dv">5</span>)</span>
-<span id="cb237-134"><a href="#cb237-134" aria-hidden="true" tabindex="-1"></a>        arrival_zipcode <span class="op">=</span> <span class="bu">str</span>(arrival_zipcode).replace(<span class="st">'.0'</span>, <span class="st">''</span>).zfill(<span class="dv">5</span>)</span>
-<span id="cb237-135"><a href="#cb237-135" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-136"><a href="#cb237-136" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate same country feature</span></span>
-<span id="cb237-137"><a href="#cb237-137" aria-hidden="true" tabindex="-1"></a>        same_country <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> departure_country <span class="op">==</span> arrival_country <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb237-138"><a href="#cb237-138" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-139"><a href="#cb237-139" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare input data</span></span>
-<span id="cb237-140"><a href="#cb237-140" aria-hidden="true" tabindex="-1"></a>        input_data <span class="op">=</span> np.array([[</span>
-<span id="cb237-141"><a href="#cb237-141" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_service.transform([service_type])[<span class="dv">0</span>],</span>
-<span id="cb237-142"><a href="#cb237-142" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_vehicle.transform([vehicle_type])[<span class="dv">0</span>],</span>
-<span id="cb237-143"><a href="#cb237-143" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_dep_country.transform([departure_country])[<span class="dv">0</span>],</span>
-<span id="cb237-144"><a href="#cb237-144" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_arr_country.transform([arrival_country])[<span class="dv">0</span>],</span>
-<span id="cb237-145"><a href="#cb237-145" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_dep_zip.transform([departure_zipcode])[<span class="dv">0</span>],</span>
-<span id="cb237-146"><a href="#cb237-146" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_arr_zip.transform([arrival_zipcode])[<span class="dv">0</span>],</span>
-<span id="cb237-147"><a href="#cb237-147" aria-hidden="true" tabindex="-1"></a>            wday,</span>
-<span id="cb237-148"><a href="#cb237-148" aria-hidden="true" tabindex="-1"></a>            same_country,</span>
-<span id="cb237-149"><a href="#cb237-149" aria-hidden="true" tabindex="-1"></a>            <span class="dv">0</span>  <span class="co"># Default DISTANCE_ENCODED</span></span>
-<span id="cb237-150"><a href="#cb237-150" aria-hidden="true" tabindex="-1"></a>        ]])</span>
-<span id="cb237-151"><a href="#cb237-151" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-152"><a href="#cb237-152" aria-hidden="true" tabindex="-1"></a>        input_scaled <span class="op">=</span> <span class="va">self</span>.scaler.transform(input_data)</span>
-<span id="cb237-153"><a href="#cb237-153" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-154"><a href="#cb237-154" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Make predictions</span></span>
-<span id="cb237-155"><a href="#cb237-155" aria-hidden="true" tabindex="-1"></a>        predicted_distance <span class="op">=</span> <span class="va">self</span>.distance_model.predict(input_scaled)[<span class="dv">0</span>]</span>
-<span id="cb237-156"><a href="#cb237-156" aria-hidden="true" tabindex="-1"></a>        model_predicted_hours <span class="op">=</span> <span class="va">self</span>.time_model.predict(input_scaled)[<span class="dv">0</span>]</span>
-<span id="cb237-157"><a href="#cb237-157" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-158"><a href="#cb237-158" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Limit predicted hours from model</span></span>
-<span id="cb237-159"><a href="#cb237-159" aria-hidden="true" tabindex="-1"></a>        model_predicted_hours <span class="op">=</span> <span class="bu">min</span>(model_predicted_hours, <span class="dv">72</span>)</span>
-<span id="cb237-160"><a href="#cb237-160" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply custom rounding to model_predicted_hours</span></span>
-<span id="cb237-161"><a href="#cb237-161" aria-hidden="true" tabindex="-1"></a>        model_predicted_hours <span class="op">=</span> <span class="va">self</span>.custom_round(model_predicted_hours)</span>
-<span id="cb237-162"><a href="#cb237-162" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-163"><a href="#cb237-163" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate workdays and arrival date based on model_predicted_hours</span></span>
-<span id="cb237-164"><a href="#cb237-164" aria-hidden="true" tabindex="-1"></a>        work_hours_per_day <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb237-165"><a href="#cb237-165" aria-hidden="true" tabindex="-1"></a>        total_workdays <span class="op">=</span> <span class="bu">int</span>(np.ceil(model_predicted_hours <span class="op">/</span> work_hours_per_day))</span>
-<span id="cb237-166"><a href="#cb237-166" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-167"><a href="#cb237-167" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate arrival date considering weekends</span></span>
-<span id="cb237-168"><a href="#cb237-168" aria-hidden="true" tabindex="-1"></a>        arrival_date <span class="op">=</span> departure_dt</span>
-<span id="cb237-169"><a href="#cb237-169" aria-hidden="true" tabindex="-1"></a>        actual_workdays <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb237-170"><a href="#cb237-170" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-171"><a href="#cb237-171" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> actual_workdays <span class="op">&lt;</span> total_workdays:</span>
-<span id="cb237-172"><a href="#cb237-172" aria-hidden="true" tabindex="-1"></a>            arrival_date <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb237-173"><a href="#cb237-173" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Only count weekdays</span></span>
-<span id="cb237-174"><a href="#cb237-174" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrival_date.weekday() <span class="op">&lt;</span> <span class="dv">7</span>:  <span class="co"># Monday = 0, Friday = 4</span></span>
-<span id="cb237-175"><a href="#cb237-175" aria-hidden="true" tabindex="-1"></a>                actual_workdays <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb237-176"><a href="#cb237-176" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-177"><a href="#cb237-177" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Adjust arrival date for weekend only for non-E-commerce services</span></span>
-<span id="cb237-178"><a href="#cb237-178" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> service_type <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"E-commerce"</span>, <span class="st">"E-commerce resi"</span>]:</span>
-<span id="cb237-179"><a href="#cb237-179" aria-hidden="true" tabindex="-1"></a>            arrival_weekday <span class="op">=</span> arrival_date.weekday()</span>
-<span id="cb237-180"><a href="#cb237-180" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrival_weekday <span class="op">==</span> <span class="dv">5</span>:  <span class="co"># Saturday</span></span>
-<span id="cb237-181"><a href="#cb237-181" aria-hidden="true" tabindex="-1"></a>                arrival_date <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">2</span>)  <span class="co"># Move to Monday</span></span>
-<span id="cb237-182"><a href="#cb237-182" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> arrival_weekday <span class="op">==</span> <span class="dv">6</span>:  <span class="co"># Sunday</span></span>
-<span id="cb237-183"><a href="#cb237-183" aria-hidden="true" tabindex="-1"></a>                arrival_date <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">1</span>)  <span class="co"># Move to Monday</span></span>
-<span id="cb237-184"><a href="#cb237-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-185"><a href="#cb237-185" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate actual hours between dates</span></span>
-<span id="cb237-186"><a href="#cb237-186" aria-hidden="true" tabindex="-1"></a>        total_days <span class="op">=</span> (arrival_date <span class="op">-</span> departure_dt).days</span>
-<span id="cb237-187"><a href="#cb237-187" aria-hidden="true" tabindex="-1"></a>        predicted_hours <span class="op">=</span> total_days <span class="op">*</span> <span class="dv">24</span>  <span class="co"># Convert days to hours</span></span>
-<span id="cb237-188"><a href="#cb237-188" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-189"><a href="#cb237-189" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
-<span id="cb237-190"><a href="#cb237-190" aria-hidden="true" tabindex="-1"></a>            <span class="st">'predicted_distance_km'</span>: <span class="bu">round</span>(predicted_distance, <span class="dv">2</span>),</span>
-<span id="cb237-191"><a href="#cb237-191" aria-hidden="true" tabindex="-1"></a>            <span class="st">'predicted_hours'</span>: predicted_hours,</span>
-<span id="cb237-192"><a href="#cb237-192" aria-hidden="true" tabindex="-1"></a>            <span class="st">'total_work_hours'</span>: model_predicted_hours,  <span class="co"># Using the rounded model prediction</span></span>
-<span id="cb237-193"><a href="#cb237-193" aria-hidden="true" tabindex="-1"></a>            <span class="st">'total_work_days'</span>: total_workdays,</span>
-<span id="cb237-194"><a href="#cb237-194" aria-hidden="true" tabindex="-1"></a>            <span class="st">'predicted_arrival_date'</span>: arrival_date.strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>),</span>
-<span id="cb237-195"><a href="#cb237-195" aria-hidden="true" tabindex="-1"></a>            <span class="st">'weekend_adjusted'</span>: arrival_date.weekday() <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> departure_dt.weekday() <span class="op">&lt;</span> <span class="dv">5</span></span>
-<span id="cb237-196"><a href="#cb237-196" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb237-197"><a href="#cb237-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-198"><a href="#cb237-198" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb237-199"><a href="#cb237-199" aria-hidden="true" tabindex="-1"></a>    predictor <span class="op">=</span> DeliveryPredictor()</span>
-<span id="cb237-200"><a href="#cb237-200" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Training</span></span>
-<span id="cb237-201"><a href="#cb237-201" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb237-202"><a href="#cb237-202" aria-hidden="true" tabindex="-1"></a>        dist_acc, time_acc <span class="op">=</span> predictor.train(<span class="st">"final_delivery_data.csv"</span>)</span>
-<span id="cb237-203"><a href="#cb237-203" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Distance model accuracy: </span><span class="sc">{</span>dist_acc<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
-<span id="cb237-204"><a href="#cb237-204" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Time model accuracy: </span><span class="sc">{</span>time_acc<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
-<span id="cb237-205"><a href="#cb237-205" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-206"><a href="#cb237-206" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Example prediction</span></span>
-<span id="cb237-207"><a href="#cb237-207" aria-hidden="true" tabindex="-1"></a>        prediction <span class="op">=</span> predictor.predict(</span>
-<span id="cb237-208"><a href="#cb237-208" aria-hidden="true" tabindex="-1"></a>            service_type<span class="op">=</span><span class="st">"Corriere espresso"</span>,</span>
-<span id="cb237-209"><a href="#cb237-209" aria-hidden="true" tabindex="-1"></a>            vehicle_type<span class="op">=</span><span class="st">"Express"</span>,</span>
-<span id="cb237-210"><a href="#cb237-210" aria-hidden="true" tabindex="-1"></a>            departure_country<span class="op">=</span><span class="st">"IT"</span>,</span>
-<span id="cb237-211"><a href="#cb237-211" aria-hidden="true" tabindex="-1"></a>            arrival_country<span class="op">=</span><span class="st">"IT"</span>,</span>
-<span id="cb237-212"><a href="#cb237-212" aria-hidden="true" tabindex="-1"></a>            departure_zipcode<span class="op">=</span><span class="st">"62010"</span>,</span>
-<span id="cb237-213"><a href="#cb237-213" aria-hidden="true" tabindex="-1"></a>            arrival_zipcode<span class="op">=</span><span class="st">"22100"</span>,</span>
-<span id="cb237-214"><a href="#cb237-214" aria-hidden="true" tabindex="-1"></a>            departure_date<span class="op">=</span><span class="st">"2023-01-10"</span></span>
-<span id="cb237-215"><a href="#cb237-215" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb237-216"><a href="#cb237-216" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb237-217"><a href="#cb237-217" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Prediction:"</span>)</span>
-<span id="cb237-218"><a href="#cb237-218" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> key, value <span class="kw">in</span> prediction.items():</span>
-<span id="cb237-219"><a href="#cb237-219" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>key<span class="sc">.</span>replace(<span class="st">'_'</span>, <span class="st">' '</span>)<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb237-220"><a href="#cb237-220" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb237-221"><a href="#cb237-221" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
-<span id="cb237-222"><a href="#cb237-222" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Error: 'final_delivery_data.csv' not found. Please ensure the data file exists."</span>)</span>
-<span id="cb237-223"><a href="#cb237-223" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb237-224"><a href="#cb237-224" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"An error occurred: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb237-225"><a href="#cb237-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-226"><a href="#cb237-226" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb237-227"><a href="#cb237-227" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb236"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb236-1"><a href="#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DeliveryPredictor:</span>
+<span id="cb236-2"><a href="#cb236-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb236-3"><a href="#cb236-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_service <span class="op">=</span> LabelEncoder()</span>
+<span id="cb236-4"><a href="#cb236-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_vehicle <span class="op">=</span> LabelEncoder()</span>
+<span id="cb236-5"><a href="#cb236-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_dep_country <span class="op">=</span> LabelEncoder()</span>
+<span id="cb236-6"><a href="#cb236-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_arr_country <span class="op">=</span> LabelEncoder()</span>
+<span id="cb236-7"><a href="#cb236-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_dep_zip <span class="op">=</span> LabelEncoder()</span>
+<span id="cb236-8"><a href="#cb236-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.le_arr_zip <span class="op">=</span> LabelEncoder()</span>
+<span id="cb236-9"><a href="#cb236-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.scaler <span class="op">=</span> RobustScaler()</span>
+<span id="cb236-10"><a href="#cb236-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.imputer <span class="op">=</span> SimpleImputer(strategy<span class="op">=</span><span class="st">'median'</span>)</span>
+<span id="cb236-11"><a href="#cb236-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.distance_model <span class="op">=</span> GradientBoostingRegressor(</span>
+<span id="cb236-12"><a href="#cb236-12" aria-hidden="true" tabindex="-1"></a>            n_estimators<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb236-13"><a href="#cb236-13" aria-hidden="true" tabindex="-1"></a>            learning_rate<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb236-14"><a href="#cb236-14" aria-hidden="true" tabindex="-1"></a>            max_depth<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb236-15"><a href="#cb236-15" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb236-16"><a href="#cb236-16" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb236-17"><a href="#cb236-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.time_model <span class="op">=</span> GradientBoostingRegressor(</span>
+<span id="cb236-18"><a href="#cb236-18" aria-hidden="true" tabindex="-1"></a>            n_estimators<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb236-19"><a href="#cb236-19" aria-hidden="true" tabindex="-1"></a>            learning_rate<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb236-20"><a href="#cb236-20" aria-hidden="true" tabindex="-1"></a>            max_depth<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb236-21"><a href="#cb236-21" aria-hidden="true" tabindex="-1"></a>            random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb236-22"><a href="#cb236-22" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb236-23"><a href="#cb236-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.unique_values <span class="op">=</span> {}</span>
+<span id="cb236-24"><a href="#cb236-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-25"><a href="#cb236-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_data(<span class="va">self</span>, df):</span>
+<span id="cb236-26"><a href="#cb236-26" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> df.copy()</span>
+<span id="cb236-27"><a href="#cb236-27" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-28"><a href="#cb236-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Clean zip codes</span></span>
+<span id="cb236-29"><a href="#cb236-29" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'DEPARTURE_ZIPCODE'</span>].fillna(<span class="st">'00000'</span>)</span>
+<span id="cb236-30"><a href="#cb236-30" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'ARRIVAL_ZIPCODE'</span>].fillna(<span class="st">'00000'</span>)</span>
+<span id="cb236-31"><a href="#cb236-31" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'DEPARTURE_ZIPCODE'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.replace(<span class="st">'.0'</span>, <span class="st">''</span>).<span class="bu">str</span>.zfill(<span class="dv">5</span>)</span>
+<span id="cb236-32"><a href="#cb236-32" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_ZIPCODE'</span>] <span class="op">=</span> df[<span class="st">'ARRIVAL_ZIPCODE'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.replace(<span class="st">'.0'</span>, <span class="st">''</span>).<span class="bu">str</span>.zfill(<span class="dv">5</span>)</span>
+<span id="cb236-33"><a href="#cb236-33" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-34"><a href="#cb236-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Remove rows with NaN in critical columns</span></span>
+<span id="cb236-35"><a href="#cb236-35" aria-hidden="true" tabindex="-1"></a>        critical_columns <span class="op">=</span> [<span class="st">'DELIVERY_TIME_HH'</span>, <span class="st">'DECLARED_DISTANCE_KM'</span>, <span class="st">'SERVICETYPE'</span>, <span class="st">'VEHICLETYPE'</span>, </span>
+<span id="cb236-36"><a href="#cb236-36" aria-hidden="true" tabindex="-1"></a>                            <span class="st">'DEPARTURE_COUNTRY'</span>, <span class="st">'ARRIVAL_COUNTRY'</span>, <span class="st">'WDAY'</span>]</span>
+<span id="cb236-37"><a href="#cb236-37" aria-hidden="true" tabindex="-1"></a>        df.dropna(subset<span class="op">=</span>critical_columns, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb236-38"><a href="#cb236-38" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-39"><a href="#cb236-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Remove outliers from delivery time</span></span>
+<span id="cb236-40"><a href="#cb236-40" aria-hidden="true" tabindex="-1"></a>        q1 <span class="op">=</span> df[<span class="st">'DELIVERY_TIME_HH'</span>].quantile(<span class="fl">0.25</span>)</span>
+<span id="cb236-41"><a href="#cb236-41" aria-hidden="true" tabindex="-1"></a>        q3 <span class="op">=</span> df[<span class="st">'DELIVERY_TIME_HH'</span>].quantile(<span class="fl">0.75</span>)</span>
+<span id="cb236-42"><a href="#cb236-42" aria-hidden="true" tabindex="-1"></a>        iqr <span class="op">=</span> q3 <span class="op">-</span> q1</span>
+<span id="cb236-43"><a href="#cb236-43" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> df[</span>
+<span id="cb236-44"><a href="#cb236-44" aria-hidden="true" tabindex="-1"></a>            (df[<span class="st">'DELIVERY_TIME_HH'</span>] <span class="op">&gt;=</span> q1 <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> iqr) <span class="op">&amp;</span> </span>
+<span id="cb236-45"><a href="#cb236-45" aria-hidden="true" tabindex="-1"></a>            (df[<span class="st">'DELIVERY_TIME_HH'</span>] <span class="op">&lt;=</span> q3 <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> iqr)</span>
+<span id="cb236-46"><a href="#cb236-46" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb236-47"><a href="#cb236-47" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-48"><a href="#cb236-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add derived features</span></span>
+<span id="cb236-49"><a href="#cb236-49" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'SAME_COUNTRY'</span>] <span class="op">=</span> (df[<span class="st">'DEPARTURE_COUNTRY'</span>] <span class="op">==</span> df[<span class="st">'ARRIVAL_COUNTRY'</span>]).astype(<span class="bu">int</span>)</span>
+<span id="cb236-50"><a href="#cb236-50" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-51"><a href="#cb236-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Encode categorical variables</span></span>
+<span id="cb236-52"><a href="#cb236-52" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'SERVICETYPE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_service.fit_transform(df[<span class="st">'SERVICETYPE'</span>])</span>
+<span id="cb236-53"><a href="#cb236-53" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'VEHICLETYPE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_vehicle.fit_transform(df[<span class="st">'VEHICLETYPE'</span>])</span>
+<span id="cb236-54"><a href="#cb236-54" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_COUNTRY_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_dep_country.fit_transform(df[<span class="st">'DEPARTURE_COUNTRY'</span>])</span>
+<span id="cb236-55"><a href="#cb236-55" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_COUNTRY_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_arr_country.fit_transform(df[<span class="st">'ARRIVAL_COUNTRY'</span>])</span>
+<span id="cb236-56"><a href="#cb236-56" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'DEPARTURE_ZIPCODE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_dep_zip.fit_transform(df[<span class="st">'DEPARTURE_ZIPCODE'</span>])</span>
+<span id="cb236-57"><a href="#cb236-57" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'ARRIVAL_ZIPCODE_encoded'</span>] <span class="op">=</span> <span class="va">self</span>.le_arr_zip.fit_transform(df[<span class="st">'ARRIVAL_ZIPCODE'</span>])</span>
+<span id="cb236-58"><a href="#cb236-58" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-59"><a href="#cb236-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Store unique values</span></span>
+<span id="cb236-60"><a href="#cb236-60" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.unique_values <span class="op">=</span> {</span>
+<span id="cb236-61"><a href="#cb236-61" aria-hidden="true" tabindex="-1"></a>            <span class="st">'service_types'</span>: df[<span class="st">'SERVICETYPE'</span>].unique(),</span>
+<span id="cb236-62"><a href="#cb236-62" aria-hidden="true" tabindex="-1"></a>            <span class="st">'vehicle_types'</span>: df[<span class="st">'VEHICLETYPE'</span>].unique(),</span>
+<span id="cb236-63"><a href="#cb236-63" aria-hidden="true" tabindex="-1"></a>            <span class="st">'departure_countries'</span>: df[<span class="st">'DEPARTURE_COUNTRY'</span>].unique(),</span>
+<span id="cb236-64"><a href="#cb236-64" aria-hidden="true" tabindex="-1"></a>            <span class="st">'arrival_countries'</span>: df[<span class="st">'ARRIVAL_COUNTRY'</span>].unique(),</span>
+<span id="cb236-65"><a href="#cb236-65" aria-hidden="true" tabindex="-1"></a>            <span class="st">'departure_zipcodes'</span>: df[<span class="st">'DEPARTURE_ZIPCODE'</span>].unique(),</span>
+<span id="cb236-66"><a href="#cb236-66" aria-hidden="true" tabindex="-1"></a>            <span class="st">'arrival_zipcodes'</span>: df[<span class="st">'ARRIVAL_ZIPCODE'</span>].unique()</span>
+<span id="cb236-67"><a href="#cb236-67" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb236-68"><a href="#cb236-68" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-69"><a href="#cb236-69" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare features</span></span>
+<span id="cb236-70"><a href="#cb236-70" aria-hidden="true" tabindex="-1"></a>        features <span class="op">=</span> [</span>
+<span id="cb236-71"><a href="#cb236-71" aria-hidden="true" tabindex="-1"></a>            <span class="st">'SERVICETYPE_encoded'</span>, <span class="st">'VEHICLETYPE_encoded'</span>, </span>
+<span id="cb236-72"><a href="#cb236-72" aria-hidden="true" tabindex="-1"></a>            <span class="st">'DEPARTURE_COUNTRY_encoded'</span>, <span class="st">'ARRIVAL_COUNTRY_encoded'</span>,</span>
+<span id="cb236-73"><a href="#cb236-73" aria-hidden="true" tabindex="-1"></a>            <span class="st">'DEPARTURE_ZIPCODE_encoded'</span>, <span class="st">'ARRIVAL_ZIPCODE_encoded'</span>, </span>
+<span id="cb236-74"><a href="#cb236-74" aria-hidden="true" tabindex="-1"></a>            <span class="st">'WDAY'</span>, <span class="st">'SAME_COUNTRY'</span></span>
+<span id="cb236-75"><a href="#cb236-75" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb236-76"><a href="#cb236-76" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-77"><a href="#cb236-77" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add DISTANCE_ENCODED</span></span>
+<span id="cb236-78"><a href="#cb236-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">'DECLARED_DISTANCE_KM'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb236-79"><a href="#cb236-79" aria-hidden="true" tabindex="-1"></a>            df[<span class="st">'DISTANCE_ENCODED'</span>] <span class="op">=</span> <span class="va">self</span>.scaler.fit_transform(df[[<span class="st">'DECLARED_DISTANCE_KM'</span>]])</span>
+<span id="cb236-80"><a href="#cb236-80" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb236-81"><a href="#cb236-81" aria-hidden="true" tabindex="-1"></a>            df[<span class="st">'DISTANCE_ENCODED'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb236-82"><a href="#cb236-82" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-83"><a href="#cb236-83" aria-hidden="true" tabindex="-1"></a>        features.append(<span class="st">'DISTANCE_ENCODED'</span>)</span>
+<span id="cb236-84"><a href="#cb236-84" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-85"><a href="#cb236-85" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare X with imputation</span></span>
+<span id="cb236-86"><a href="#cb236-86" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> df[features].values</span>
+<span id="cb236-87"><a href="#cb236-87" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> <span class="va">self</span>.imputer.fit_transform(X)  <span class="co"># Impute missing values</span></span>
+<span id="cb236-88"><a href="#cb236-88" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> <span class="va">self</span>.scaler.fit_transform(X)</span>
+<span id="cb236-89"><a href="#cb236-89" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-90"><a href="#cb236-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> X, df</span>
+<span id="cb236-91"><a href="#cb236-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb236-92"><a href="#cb236-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> train(<span class="va">self</span>, data_path):</span>
+<span id="cb236-93"><a href="#cb236-93" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Load data</span></span>
+<span id="cb236-94"><a href="#cb236-94" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.read_csv(data_path)</span>
+<span id="cb236-95"><a href="#cb236-95" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-96"><a href="#cb236-96" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare features and targets</span></span>
+<span id="cb236-97"><a href="#cb236-97" aria-hidden="true" tabindex="-1"></a>        X, df_cleaned <span class="op">=</span> <span class="va">self</span>.prepare_data(df)</span>
+<span id="cb236-98"><a href="#cb236-98" aria-hidden="true" tabindex="-1"></a>        y_distance <span class="op">=</span> df_cleaned[<span class="st">'DECLARED_DISTANCE_KM'</span>].values</span>
+<span id="cb236-99"><a href="#cb236-99" aria-hidden="true" tabindex="-1"></a>        y_time <span class="op">=</span> df_cleaned[<span class="st">'DELIVERY_TIME_HH'</span>].values</span>
+<span id="cb236-100"><a href="#cb236-100" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-101"><a href="#cb236-101" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Normalize delivery time</span></span>
+<span id="cb236-102"><a href="#cb236-102" aria-hidden="true" tabindex="-1"></a>        y_time <span class="op">=</span> np.minimum(y_time, <span class="dv">72</span>)</span>
+<span id="cb236-103"><a href="#cb236-103" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-104"><a href="#cb236-104" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Split data</span></span>
+<span id="cb236-105"><a href="#cb236-105" aria-hidden="true" tabindex="-1"></a>        X_train, X_test, y_dist_train, y_dist_test, y_time_train, y_time_test <span class="op">=</span> train_test_split(</span>
+<span id="cb236-106"><a href="#cb236-106" aria-hidden="true" tabindex="-1"></a>            X, y_distance, y_time, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb236-107"><a href="#cb236-107" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb236-108"><a href="#cb236-108" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-109"><a href="#cb236-109" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Train models</span></span>
+<span id="cb236-110"><a href="#cb236-110" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.distance_model.fit(X_train, y_dist_train)</span>
+<span id="cb236-111"><a href="#cb236-111" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.time_model.fit(X_train, y_time_train)</span>
+<span id="cb236-112"><a href="#cb236-112" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-113"><a href="#cb236-113" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate accuracy</span></span>
+<span id="cb236-114"><a href="#cb236-114" aria-hidden="true" tabindex="-1"></a>        dist_accuracy <span class="op">=</span> r2_score(y_dist_test, <span class="va">self</span>.distance_model.predict(X_test))</span>
+<span id="cb236-115"><a href="#cb236-115" aria-hidden="true" tabindex="-1"></a>        time_accuracy <span class="op">=</span> r2_score(y_time_test, <span class="va">self</span>.time_model.predict(X_test))</span>
+<span id="cb236-116"><a href="#cb236-116" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-117"><a href="#cb236-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> dist_accuracy, time_accuracy</span>
+<span id="cb236-118"><a href="#cb236-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb236-119"><a href="#cb236-119" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> custom_round(<span class="va">self</span>, number):</span>
+<span id="cb236-120"><a href="#cb236-120" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Custom rounding function based on decimal part"""</span></span>
+<span id="cb236-121"><a href="#cb236-121" aria-hidden="true" tabindex="-1"></a>        decimal_part <span class="op">=</span> number <span class="op">%</span> <span class="dv">1</span></span>
+<span id="cb236-122"><a href="#cb236-122" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> decimal_part <span class="op">&gt;=</span> <span class="fl">0.5</span>:</span>
+<span id="cb236-123"><a href="#cb236-123" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> np.ceil(number)</span>
+<span id="cb236-124"><a href="#cb236-124" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.floor(number)</span>
+<span id="cb236-125"><a href="#cb236-125" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb236-126"><a href="#cb236-126" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, service_type, vehicle_type, departure_country, arrival_country,</span>
+<span id="cb236-127"><a href="#cb236-127" aria-hidden="true" tabindex="-1"></a>                departure_zipcode, arrival_zipcode, departure_date):</span>
+<span id="cb236-128"><a href="#cb236-128" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Convert departure_date to weekday</span></span>
+<span id="cb236-129"><a href="#cb236-129" aria-hidden="true" tabindex="-1"></a>        departure_dt <span class="op">=</span> datetime.strptime(departure_date, <span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)</span>
+<span id="cb236-130"><a href="#cb236-130" aria-hidden="true" tabindex="-1"></a>        wday <span class="op">=</span> departure_dt.weekday()</span>
+<span id="cb236-131"><a href="#cb236-131" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-132"><a href="#cb236-132" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Convert zip codes to strings with leading zeros</span></span>
+<span id="cb236-133"><a href="#cb236-133" aria-hidden="true" tabindex="-1"></a>        departure_zipcode <span class="op">=</span> <span class="bu">str</span>(departure_zipcode).replace(<span class="st">'.0'</span>, <span class="st">''</span>).zfill(<span class="dv">5</span>)</span>
+<span id="cb236-134"><a href="#cb236-134" aria-hidden="true" tabindex="-1"></a>        arrival_zipcode <span class="op">=</span> <span class="bu">str</span>(arrival_zipcode).replace(<span class="st">'.0'</span>, <span class="st">''</span>).zfill(<span class="dv">5</span>)</span>
+<span id="cb236-135"><a href="#cb236-135" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-136"><a href="#cb236-136" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate same country feature</span></span>
+<span id="cb236-137"><a href="#cb236-137" aria-hidden="true" tabindex="-1"></a>        same_country <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> departure_country <span class="op">==</span> arrival_country <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb236-138"><a href="#cb236-138" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-139"><a href="#cb236-139" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Prepare input data</span></span>
+<span id="cb236-140"><a href="#cb236-140" aria-hidden="true" tabindex="-1"></a>        input_data <span class="op">=</span> np.array([[</span>
+<span id="cb236-141"><a href="#cb236-141" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_service.transform([service_type])[<span class="dv">0</span>],</span>
+<span id="cb236-142"><a href="#cb236-142" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_vehicle.transform([vehicle_type])[<span class="dv">0</span>],</span>
+<span id="cb236-143"><a href="#cb236-143" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_dep_country.transform([departure_country])[<span class="dv">0</span>],</span>
+<span id="cb236-144"><a href="#cb236-144" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_arr_country.transform([arrival_country])[<span class="dv">0</span>],</span>
+<span id="cb236-145"><a href="#cb236-145" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_dep_zip.transform([departure_zipcode])[<span class="dv">0</span>],</span>
+<span id="cb236-146"><a href="#cb236-146" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.le_arr_zip.transform([arrival_zipcode])[<span class="dv">0</span>],</span>
+<span id="cb236-147"><a href="#cb236-147" aria-hidden="true" tabindex="-1"></a>            wday,</span>
+<span id="cb236-148"><a href="#cb236-148" aria-hidden="true" tabindex="-1"></a>            same_country,</span>
+<span id="cb236-149"><a href="#cb236-149" aria-hidden="true" tabindex="-1"></a>            <span class="dv">0</span>  <span class="co"># Default DISTANCE_ENCODED</span></span>
+<span id="cb236-150"><a href="#cb236-150" aria-hidden="true" tabindex="-1"></a>        ]])</span>
+<span id="cb236-151"><a href="#cb236-151" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-152"><a href="#cb236-152" aria-hidden="true" tabindex="-1"></a>        input_scaled <span class="op">=</span> <span class="va">self</span>.scaler.transform(input_data)</span>
+<span id="cb236-153"><a href="#cb236-153" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-154"><a href="#cb236-154" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Make predictions</span></span>
+<span id="cb236-155"><a href="#cb236-155" aria-hidden="true" tabindex="-1"></a>        predicted_distance <span class="op">=</span> <span class="va">self</span>.distance_model.predict(input_scaled)[<span class="dv">0</span>]</span>
+<span id="cb236-156"><a href="#cb236-156" aria-hidden="true" tabindex="-1"></a>        model_predicted_hours <span class="op">=</span> <span class="va">self</span>.time_model.predict(input_scaled)[<span class="dv">0</span>]</span>
+<span id="cb236-157"><a href="#cb236-157" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-158"><a href="#cb236-158" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Limit predicted hours from model</span></span>
+<span id="cb236-159"><a href="#cb236-159" aria-hidden="true" tabindex="-1"></a>        model_predicted_hours <span class="op">=</span> <span class="bu">min</span>(model_predicted_hours, <span class="dv">72</span>)</span>
+<span id="cb236-160"><a href="#cb236-160" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply custom rounding to model_predicted_hours</span></span>
+<span id="cb236-161"><a href="#cb236-161" aria-hidden="true" tabindex="-1"></a>        model_predicted_hours <span class="op">=</span> <span class="va">self</span>.custom_round(model_predicted_hours)</span>
+<span id="cb236-162"><a href="#cb236-162" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-163"><a href="#cb236-163" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate workdays and arrival date based on model_predicted_hours</span></span>
+<span id="cb236-164"><a href="#cb236-164" aria-hidden="true" tabindex="-1"></a>        work_hours_per_day <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb236-165"><a href="#cb236-165" aria-hidden="true" tabindex="-1"></a>        total_workdays <span class="op">=</span> <span class="bu">int</span>(np.ceil(model_predicted_hours <span class="op">/</span> work_hours_per_day))</span>
+<span id="cb236-166"><a href="#cb236-166" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-167"><a href="#cb236-167" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate arrival date considering weekends</span></span>
+<span id="cb236-168"><a href="#cb236-168" aria-hidden="true" tabindex="-1"></a>        arrival_date <span class="op">=</span> departure_dt</span>
+<span id="cb236-169"><a href="#cb236-169" aria-hidden="true" tabindex="-1"></a>        actual_workdays <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb236-170"><a href="#cb236-170" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-171"><a href="#cb236-171" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> actual_workdays <span class="op">&lt;</span> total_workdays:</span>
+<span id="cb236-172"><a href="#cb236-172" aria-hidden="true" tabindex="-1"></a>            arrival_date <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb236-173"><a href="#cb236-173" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Only count weekdays</span></span>
+<span id="cb236-174"><a href="#cb236-174" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrival_date.weekday() <span class="op">&lt;</span> <span class="dv">7</span>:  <span class="co"># Monday = 0, Friday = 4</span></span>
+<span id="cb236-175"><a href="#cb236-175" aria-hidden="true" tabindex="-1"></a>                actual_workdays <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb236-176"><a href="#cb236-176" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-177"><a href="#cb236-177" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Adjust arrival date for weekend only for non-E-commerce services</span></span>
+<span id="cb236-178"><a href="#cb236-178" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> service_type <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"E-commerce"</span>, <span class="st">"E-commerce resi"</span>]:</span>
+<span id="cb236-179"><a href="#cb236-179" aria-hidden="true" tabindex="-1"></a>            arrival_weekday <span class="op">=</span> arrival_date.weekday()</span>
+<span id="cb236-180"><a href="#cb236-180" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrival_weekday <span class="op">==</span> <span class="dv">5</span>:  <span class="co"># Saturday</span></span>
+<span id="cb236-181"><a href="#cb236-181" aria-hidden="true" tabindex="-1"></a>                arrival_date <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">2</span>)  <span class="co"># Move to Monday</span></span>
+<span id="cb236-182"><a href="#cb236-182" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> arrival_weekday <span class="op">==</span> <span class="dv">6</span>:  <span class="co"># Sunday</span></span>
+<span id="cb236-183"><a href="#cb236-183" aria-hidden="true" tabindex="-1"></a>                arrival_date <span class="op">+=</span> timedelta(days<span class="op">=</span><span class="dv">1</span>)  <span class="co"># Move to Monday</span></span>
+<span id="cb236-184"><a href="#cb236-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb236-185"><a href="#cb236-185" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate actual hours between dates</span></span>
+<span id="cb236-186"><a href="#cb236-186" aria-hidden="true" tabindex="-1"></a>        total_days <span class="op">=</span> (arrival_date <span class="op">-</span> departure_dt).days</span>
+<span id="cb236-187"><a href="#cb236-187" aria-hidden="true" tabindex="-1"></a>        predicted_hours <span class="op">=</span> total_days <span class="op">*</span> <span class="dv">24</span>  <span class="co"># Convert days to hours</span></span>
+<span id="cb236-188"><a href="#cb236-188" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-189"><a href="#cb236-189" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
+<span id="cb236-190"><a href="#cb236-190" aria-hidden="true" tabindex="-1"></a>            <span class="st">'predicted_distance_km'</span>: <span class="bu">round</span>(predicted_distance, <span class="dv">2</span>),</span>
+<span id="cb236-191"><a href="#cb236-191" aria-hidden="true" tabindex="-1"></a>            <span class="st">'predicted_hours'</span>: predicted_hours,</span>
+<span id="cb236-192"><a href="#cb236-192" aria-hidden="true" tabindex="-1"></a>            <span class="st">'total_work_hours'</span>: model_predicted_hours,  <span class="co"># Using the rounded model prediction</span></span>
+<span id="cb236-193"><a href="#cb236-193" aria-hidden="true" tabindex="-1"></a>            <span class="st">'total_work_days'</span>: total_workdays,</span>
+<span id="cb236-194"><a href="#cb236-194" aria-hidden="true" tabindex="-1"></a>            <span class="st">'predicted_arrival_date'</span>: arrival_date.strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>),</span>
+<span id="cb236-195"><a href="#cb236-195" aria-hidden="true" tabindex="-1"></a>            <span class="st">'weekend_adjusted'</span>: arrival_date.weekday() <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> departure_dt.weekday() <span class="op">&lt;</span> <span class="dv">5</span></span>
+<span id="cb236-196"><a href="#cb236-196" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb236-197"><a href="#cb236-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb236-198"><a href="#cb236-198" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb236-199"><a href="#cb236-199" aria-hidden="true" tabindex="-1"></a>    predictor <span class="op">=</span> DeliveryPredictor()</span>
+<span id="cb236-200"><a href="#cb236-200" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Training</span></span>
+<span id="cb236-201"><a href="#cb236-201" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb236-202"><a href="#cb236-202" aria-hidden="true" tabindex="-1"></a>        dist_acc, time_acc <span class="op">=</span> predictor.train(<span class="st">"final_delivery_data.csv"</span>)</span>
+<span id="cb236-203"><a href="#cb236-203" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Distance model accuracy: </span><span class="sc">{</span>dist_acc<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb236-204"><a href="#cb236-204" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Time model accuracy: </span><span class="sc">{</span>time_acc<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb236-205"><a href="#cb236-205" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-206"><a href="#cb236-206" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Example prediction</span></span>
+<span id="cb236-207"><a href="#cb236-207" aria-hidden="true" tabindex="-1"></a>        prediction <span class="op">=</span> predictor.predict(</span>
+<span id="cb236-208"><a href="#cb236-208" aria-hidden="true" tabindex="-1"></a>            service_type<span class="op">=</span><span class="st">"Corriere espresso"</span>,</span>
+<span id="cb236-209"><a href="#cb236-209" aria-hidden="true" tabindex="-1"></a>            vehicle_type<span class="op">=</span><span class="st">"Express"</span>,</span>
+<span id="cb236-210"><a href="#cb236-210" aria-hidden="true" tabindex="-1"></a>            departure_country<span class="op">=</span><span class="st">"IT"</span>,</span>
+<span id="cb236-211"><a href="#cb236-211" aria-hidden="true" tabindex="-1"></a>            arrival_country<span class="op">=</span><span class="st">"IT"</span>,</span>
+<span id="cb236-212"><a href="#cb236-212" aria-hidden="true" tabindex="-1"></a>            departure_zipcode<span class="op">=</span><span class="st">"62010"</span>,</span>
+<span id="cb236-213"><a href="#cb236-213" aria-hidden="true" tabindex="-1"></a>            arrival_zipcode<span class="op">=</span><span class="st">"22100"</span>,</span>
+<span id="cb236-214"><a href="#cb236-214" aria-hidden="true" tabindex="-1"></a>            departure_date<span class="op">=</span><span class="st">"2023-01-10"</span></span>
+<span id="cb236-215"><a href="#cb236-215" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb236-216"><a href="#cb236-216" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb236-217"><a href="#cb236-217" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Prediction:"</span>)</span>
+<span id="cb236-218"><a href="#cb236-218" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> key, value <span class="kw">in</span> prediction.items():</span>
+<span id="cb236-219"><a href="#cb236-219" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>key<span class="sc">.</span>replace(<span class="st">'_'</span>, <span class="st">' '</span>)<span class="sc">.</span>title()<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb236-220"><a href="#cb236-220" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb236-221"><a href="#cb236-221" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
+<span id="cb236-222"><a href="#cb236-222" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Error: 'final_delivery_data.csv' not found. Please ensure the data file exists."</span>)</span>
+<span id="cb236-223"><a href="#cb236-223" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb236-224"><a href="#cb236-224" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"An error occurred: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb236-225"><a href="#cb236-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb236-226"><a href="#cb236-226" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb236-227"><a href="#cb236-227" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Distance model accuracy: 100.00%
 Time model accuracy: 55.95%
