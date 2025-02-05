@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>first of all we are going to import every library that we’ll need during the project</p>
-<div id="0ee3b7c4-934f-41c6-b21e-c5ad903be1bc" class="cell" data-execution_count="9">
+<div id="0ee3b7c4-934f-41c6-b21e-c5ad903be1bc" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">Libraries versions</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2119,7 +2119,7 @@ Mixed deliveries: 574</code></pre>
 </section>
 <section id="creation-of-the-travel-map" class="level2">
 <h2 class="anchored" data-anchor-id="creation-of-the-travel-map">Creation of the travel map</h2>
-<div id="22e05928-9c76-4586-a354-bc6263a42fbf" class="cell" data-execution_count="10">
+<div id="22e05928-9c76-4586-a354-bc6263a42fbf" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb229"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_zipcode_coordinates(zipcode: <span class="bu">str</span>, country: <span class="bu">str</span>) <span class="op">-&gt;</span> Optional[Tuple[<span class="bu">float</span>, <span class="bu">float</span>]]:</span>
 <span id="cb229-2"><a href="#cb229-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb229-3"><a href="#cb229-3" aria-hidden="true" tabindex="-1"></a>        geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"delivery_route_mapper"</span>)</span>
@@ -2139,89 +2139,115 @@ Mixed deliveries: 574</code></pre>
 <span id="cb229-17"><a href="#cb229-17" aria-hidden="true" tabindex="-1"></a><span class="co">   </span></span>
 <span id="cb229-18"><a href="#cb229-18" aria-hidden="true" tabindex="-1"></a><span class="co">    ZIP codes 02476, 02482, and 02116 are Massachusetts ZIP codes that were</span></span>
 <span id="cb229-19"><a href="#cb229-19" aria-hidden="true" tabindex="-1"></a><span class="co">    incorrectly geocoded to other countries, so we skip them to maintain data accuracy.</span></span>
-<span id="cb229-20"><a href="#cb229-20" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb229-21"><a href="#cb229-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ZIP codes to skip due to incorrect geocoding outside the USA</span></span>
-<span id="cb229-22"><a href="#cb229-22" aria-hidden="true" tabindex="-1"></a>    skip_zipcodes <span class="op">=</span> {<span class="st">'2476'</span>, <span class="st">'2482.0'</span>, <span class="st">'2116.0'</span>}</span>
-<span id="cb229-23"><a href="#cb229-23" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb229-24"><a href="#cb229-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb229-25"><a href="#cb229-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Read only first 40 rows as a sample</span></span>
-<span id="cb229-26"><a href="#cb229-26" aria-hidden="true" tabindex="-1"></a>        dataset <span class="op">=</span> pd.read_csv(csv_filename, nrows<span class="op">=</span><span class="dv">40</span>)</span>
-<span id="cb229-27"><a href="#cb229-27" aria-hidden="true" tabindex="-1"></a>        routes <span class="op">=</span> []</span>
-<span id="cb229-28"><a href="#cb229-28" aria-hidden="true" tabindex="-1"></a>        cities <span class="op">=</span> {}</span>
-<span id="cb229-29"><a href="#cb229-29" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-30"><a href="#cb229-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Progress bar for geocoding</span></span>
-<span id="cb229-31"><a href="#cb229-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _, row <span class="kw">in</span> tqdm(dataset.iterrows(), total<span class="op">=</span>dataset.shape[<span class="dv">0</span>], desc<span class="op">=</span><span class="ss">f"Processing </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">"</span>):</span>
-<span id="cb229-32"><a href="#cb229-32" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Skip problematic ZIP codes that get mapped to wrong countries</span></span>
-<span id="cb229-33"><a href="#cb229-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>]) <span class="kw">in</span> skip_zipcodes <span class="kw">or</span></span>
-<span id="cb229-34"><a href="#cb229-34" aria-hidden="true" tabindex="-1"></a>                <span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>]) <span class="kw">in</span> skip_zipcodes):</span>
-<span id="cb229-35"><a href="#cb229-35" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
-<span id="cb229-36"><a href="#cb229-36" aria-hidden="true" tabindex="-1"></a>               </span>
-<span id="cb229-37"><a href="#cb229-37" aria-hidden="true" tabindex="-1"></a>            departure <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>]), row[<span class="st">"DEPARTURE_COUNTRY"</span>])</span>
-<span id="cb229-38"><a href="#cb229-38" aria-hidden="true" tabindex="-1"></a>            arrival <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>]), row[<span class="st">"ARRIVAL_COUNTRY"</span>])</span>
-<span id="cb229-39"><a href="#cb229-39" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb229-40"><a href="#cb229-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrival <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> departure <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb229-41"><a href="#cb229-41" aria-hidden="true" tabindex="-1"></a>                route <span class="op">=</span> [departure, arrival]</span>
-<span id="cb229-42"><a href="#cb229-42" aria-hidden="true" tabindex="-1"></a>                routes.append(route)</span>
-<span id="cb229-43"><a href="#cb229-43" aria-hidden="true" tabindex="-1"></a>                cities[<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>])] <span class="op">=</span> departure</span>
-<span id="cb229-44"><a href="#cb229-44" aria-hidden="true" tabindex="-1"></a>                cities[<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>])] <span class="op">=</span> arrival</span>
+<span id="cb229-20"><a href="#cb229-20" aria-hidden="true" tabindex="-1"></a><span class="co">   </span></span>
+<span id="cb229-21"><a href="#cb229-21" aria-hidden="true" tabindex="-1"></a><span class="co">    Colors:</span></span>
+<span id="cb229-22"><a href="#cb229-22" aria-hidden="true" tabindex="-1"></a><span class="co">    - Departure points: #493843 (dark purple-grey)</span></span>
+<span id="cb229-23"><a href="#cb229-23" aria-hidden="true" tabindex="-1"></a><span class="co">    - Arrival points: #6F818B (light blue-grey)</span></span>
+<span id="cb229-24"><a href="#cb229-24" aria-hidden="true" tabindex="-1"></a><span class="co">    - Route lines: #0E6982 (teal blue)</span></span>
+<span id="cb229-25"><a href="#cb229-25" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb229-26"><a href="#cb229-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ZIP codes to skip due to incorrect geocoding outside the USA</span></span>
+<span id="cb229-27"><a href="#cb229-27" aria-hidden="true" tabindex="-1"></a>    skip_zipcodes <span class="op">=</span> {<span class="st">'2476'</span>, <span class="st">'2482.0'</span>, <span class="st">'2116.0'</span>}</span>
+<span id="cb229-28"><a href="#cb229-28" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb229-29"><a href="#cb229-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb229-30"><a href="#cb229-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Read only first 40 rows as a sample</span></span>
+<span id="cb229-31"><a href="#cb229-31" aria-hidden="true" tabindex="-1"></a>        dataset <span class="op">=</span> pd.read_csv(csv_filename, nrows<span class="op">=</span><span class="dv">40</span>)</span>
+<span id="cb229-32"><a href="#cb229-32" aria-hidden="true" tabindex="-1"></a>        routes <span class="op">=</span> []</span>
+<span id="cb229-33"><a href="#cb229-33" aria-hidden="true" tabindex="-1"></a>        departures <span class="op">=</span> {}  <span class="co"># Separate dictionary for departure points</span></span>
+<span id="cb229-34"><a href="#cb229-34" aria-hidden="true" tabindex="-1"></a>        arrivals <span class="op">=</span> {}    <span class="co"># Separate dictionary for arrival points</span></span>
+<span id="cb229-35"><a href="#cb229-35" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb229-36"><a href="#cb229-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Progress bar for geocoding</span></span>
+<span id="cb229-37"><a href="#cb229-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _, row <span class="kw">in</span> tqdm(dataset.iterrows(), total<span class="op">=</span>dataset.shape[<span class="dv">0</span>], desc<span class="op">=</span><span class="ss">f"Processing </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">"</span>):</span>
+<span id="cb229-38"><a href="#cb229-38" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Skip problematic ZIP codes that get mapped to wrong countries</span></span>
+<span id="cb229-39"><a href="#cb229-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>]) <span class="kw">in</span> skip_zipcodes <span class="kw">or</span></span>
+<span id="cb229-40"><a href="#cb229-40" aria-hidden="true" tabindex="-1"></a>                <span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>]) <span class="kw">in</span> skip_zipcodes):</span>
+<span id="cb229-41"><a href="#cb229-41" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb229-42"><a href="#cb229-42" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb229-43"><a href="#cb229-43" aria-hidden="true" tabindex="-1"></a>            departure <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>]), row[<span class="st">"DEPARTURE_COUNTRY"</span>])</span>
+<span id="cb229-44"><a href="#cb229-44" aria-hidden="true" tabindex="-1"></a>            arrival <span class="op">=</span> get_zipcode_coordinates(<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>]), row[<span class="st">"ARRIVAL_COUNTRY"</span>])</span>
 <span id="cb229-45"><a href="#cb229-45" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb229-46"><a href="#cb229-46" aria-hidden="true" tabindex="-1"></a>            time.sleep(<span class="dv">1</span>)  <span class="co"># Prevent overwhelming the geocoding service</span></span>
-<span id="cb229-47"><a href="#cb229-47" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-48"><a href="#cb229-48" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create map centered on a middle point</span></span>
-<span id="cb229-49"><a href="#cb229-49" aria-hidden="true" tabindex="-1"></a>        map_vis <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="dv">45</span>, <span class="dv">10</span>], zoom_start<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb229-50"><a href="#cb229-50" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-51"><a href="#cb229-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add delivery routes</span></span>
-<span id="cb229-52"><a href="#cb229-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> route <span class="kw">in</span> tqdm(routes, desc<span class="op">=</span><span class="st">"Adding Routes"</span>):</span>
-<span id="cb229-53"><a href="#cb229-53" aria-hidden="true" tabindex="-1"></a>            folium.PolyLine(route, color<span class="op">=</span><span class="st">"blue"</span>, weight<span class="op">=</span><span class="dv">2</span>, opacity<span class="op">=</span><span class="fl">0.7</span>).add_to(map_vis)</span>
-<span id="cb229-54"><a href="#cb229-54" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-55"><a href="#cb229-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add city markers</span></span>
-<span id="cb229-56"><a href="#cb229-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> name, coord <span class="kw">in</span> tqdm(cities.items(), desc<span class="op">=</span><span class="st">"Adding Markers"</span>):</span>
-<span id="cb229-57"><a href="#cb229-57" aria-hidden="true" tabindex="-1"></a>            folium.Marker(coord, popup<span class="op">=</span>name, icon<span class="op">=</span>folium.Icon(color<span class="op">=</span><span class="st">"red"</span>)).add_to(map_vis)</span>
-<span id="cb229-58"><a href="#cb229-58" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb229-59"><a href="#cb229-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Save map to HTML file</span></span>
-<span id="cb229-60"><a href="#cb229-60" aria-hidden="true" tabindex="-1"></a>        output_name <span class="op">=</span> os.path.splitext(csv_filename)[<span class="dv">0</span>] <span class="op">+</span> <span class="st">'_sample.html'</span></span>
-<span id="cb229-61"><a href="#cb229-61" aria-hidden="true" tabindex="-1"></a>        map_vis.save(output_name)</span>
-<span id="cb229-62"><a href="#cb229-62" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Sample map successfully created: </span><span class="sc">{</span>output_name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-63"><a href="#cb229-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb229-64"><a href="#cb229-64" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb229-65"><a href="#cb229-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb229-66"><a href="#cb229-66" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error processing </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-67"><a href="#cb229-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb229-68"><a href="#cb229-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb229-69"><a href="#cb229-69" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb229-70"><a href="#cb229-70" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> [</span>
-<span id="cb229-71"><a href="#cb229-71" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_it_it.csv'</span>,</span>
-<span id="cb229-72"><a href="#cb229-72" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_us_us.csv'</span>,</span>
-<span id="cb229-73"><a href="#cb229-73" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_mixed.csv'</span></span>
-<span id="cb229-74"><a href="#cb229-74" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb229-75"><a href="#cb229-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
-<span id="cb229-76"><a href="#cb229-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.exists(<span class="bu">file</span>):</span>
-<span id="cb229-77"><a href="#cb229-77" aria-hidden="true" tabindex="-1"></a>            draw_map(<span class="bu">file</span>)</span>
-<span id="cb229-78"><a href="#cb229-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb229-79"><a href="#cb229-79" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"File not found: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb229-80"><a href="#cb229-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb229-81"><a href="#cb229-81" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb229-82"><a href="#cb229-82" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb229-46"><a href="#cb229-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arrival <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> departure <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb229-47"><a href="#cb229-47" aria-hidden="true" tabindex="-1"></a>                route <span class="op">=</span> [departure, arrival]</span>
+<span id="cb229-48"><a href="#cb229-48" aria-hidden="true" tabindex="-1"></a>                routes.append(route)</span>
+<span id="cb229-49"><a href="#cb229-49" aria-hidden="true" tabindex="-1"></a>                departures[<span class="bu">str</span>(row[<span class="st">"DEPARTURE_ZIPCODE"</span>])] <span class="op">=</span> departure</span>
+<span id="cb229-50"><a href="#cb229-50" aria-hidden="true" tabindex="-1"></a>                arrivals[<span class="bu">str</span>(row[<span class="st">"ARRIVAL_ZIPCODE"</span>])] <span class="op">=</span> arrival</span>
+<span id="cb229-51"><a href="#cb229-51" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb229-52"><a href="#cb229-52" aria-hidden="true" tabindex="-1"></a>            time.sleep(<span class="dv">1</span>)  <span class="co"># Prevent overwhelming the geocoding service</span></span>
+<span id="cb229-53"><a href="#cb229-53" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb229-54"><a href="#cb229-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Create map centered on a middle point</span></span>
+<span id="cb229-55"><a href="#cb229-55" aria-hidden="true" tabindex="-1"></a>        map_vis <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="dv">45</span>, <span class="dv">10</span>], zoom_start<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb229-56"><a href="#cb229-56" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb229-57"><a href="#cb229-57" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add delivery routes with custom color</span></span>
+<span id="cb229-58"><a href="#cb229-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> route <span class="kw">in</span> tqdm(routes, desc<span class="op">=</span><span class="st">"Adding Routes"</span>):</span>
+<span id="cb229-59"><a href="#cb229-59" aria-hidden="true" tabindex="-1"></a>            folium.PolyLine(</span>
+<span id="cb229-60"><a href="#cb229-60" aria-hidden="true" tabindex="-1"></a>                route,</span>
+<span id="cb229-61"><a href="#cb229-61" aria-hidden="true" tabindex="-1"></a>                color<span class="op">=</span><span class="st">"#0E6982"</span>,  <span class="co"># Custom teal blue color</span></span>
+<span id="cb229-62"><a href="#cb229-62" aria-hidden="true" tabindex="-1"></a>                weight<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb229-63"><a href="#cb229-63" aria-hidden="true" tabindex="-1"></a>                opacity<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb229-64"><a href="#cb229-64" aria-hidden="true" tabindex="-1"></a>            ).add_to(map_vis)</span>
+<span id="cb229-65"><a href="#cb229-65" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb229-66"><a href="#cb229-66" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add departure point markers with custom color</span></span>
+<span id="cb229-67"><a href="#cb229-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> name, coord <span class="kw">in</span> tqdm(departures.items(), desc<span class="op">=</span><span class="st">"Adding Departure Markers"</span>):</span>
+<span id="cb229-68"><a href="#cb229-68" aria-hidden="true" tabindex="-1"></a>            folium.Marker(</span>
+<span id="cb229-69"><a href="#cb229-69" aria-hidden="true" tabindex="-1"></a>                coord,</span>
+<span id="cb229-70"><a href="#cb229-70" aria-hidden="true" tabindex="-1"></a>                popup<span class="op">=</span><span class="ss">f"Departure: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb229-71"><a href="#cb229-71" aria-hidden="true" tabindex="-1"></a>                icon<span class="op">=</span>folium.Icon(color<span class="op">=</span><span class="st">"darkpurple"</span>, icon_color<span class="op">=</span><span class="st">"#493843"</span>)  <span class="co"># Custom dark purple-grey</span></span>
+<span id="cb229-72"><a href="#cb229-72" aria-hidden="true" tabindex="-1"></a>            ).add_to(map_vis)</span>
+<span id="cb229-73"><a href="#cb229-73" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb229-74"><a href="#cb229-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add arrival point markers with custom color - FIXED VERSION</span></span>
+<span id="cb229-75"><a href="#cb229-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> name, coord <span class="kw">in</span> tqdm(arrivals.items(), desc<span class="op">=</span><span class="st">"Adding Arrival Markers"</span>):</span>
+<span id="cb229-76"><a href="#cb229-76" aria-hidden="true" tabindex="-1"></a>            folium.Marker(</span>
+<span id="cb229-77"><a href="#cb229-77" aria-hidden="true" tabindex="-1"></a>                coord,</span>
+<span id="cb229-78"><a href="#cb229-78" aria-hidden="true" tabindex="-1"></a>                popup<span class="op">=</span><span class="ss">f"Arrival: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb229-79"><a href="#cb229-79" aria-hidden="true" tabindex="-1"></a>                icon<span class="op">=</span>folium.Icon(color<span class="op">=</span><span class="st">'lightgray'</span>, icon_color<span class="op">=</span><span class="st">"#6F818B"</span>)  <span class="co"># Using standard Icon with custom colors</span></span>
+<span id="cb229-80"><a href="#cb229-80" aria-hidden="true" tabindex="-1"></a>            ).add_to(map_vis)</span>
+<span id="cb229-81"><a href="#cb229-81" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb229-82"><a href="#cb229-82" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Save map to HTML file</span></span>
+<span id="cb229-83"><a href="#cb229-83" aria-hidden="true" tabindex="-1"></a>        output_name <span class="op">=</span> os.path.splitext(csv_filename)[<span class="dv">0</span>] <span class="op">+</span> <span class="st">'_sample.html'</span></span>
+<span id="cb229-84"><a href="#cb229-84" aria-hidden="true" tabindex="-1"></a>        map_vis.save(output_name)</span>
+<span id="cb229-85"><a href="#cb229-85" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Sample map successfully created: </span><span class="sc">{</span>output_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb229-86"><a href="#cb229-86" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb229-87"><a href="#cb229-87" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb229-88"><a href="#cb229-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb229-89"><a href="#cb229-89" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error processing </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb229-90"><a href="#cb229-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb229-91"><a href="#cb229-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-92"><a href="#cb229-92" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb229-93"><a href="#cb229-93" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> [</span>
+<span id="cb229-94"><a href="#cb229-94" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_it_it.csv'</span>,</span>
+<span id="cb229-95"><a href="#cb229-95" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_us_us.csv'</span>,</span>
+<span id="cb229-96"><a href="#cb229-96" aria-hidden="true" tabindex="-1"></a>        <span class="st">'final_delivery_data_mixed.csv'</span></span>
+<span id="cb229-97"><a href="#cb229-97" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb229-98"><a href="#cb229-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
+<span id="cb229-99"><a href="#cb229-99" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.exists(<span class="bu">file</span>):</span>
+<span id="cb229-100"><a href="#cb229-100" aria-hidden="true" tabindex="-1"></a>            draw_map(<span class="bu">file</span>)</span>
+<span id="cb229-101"><a href="#cb229-101" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb229-102"><a href="#cb229-102" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"File not found: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb229-103"><a href="#cb229-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-104"><a href="#cb229-104" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb229-105"><a href="#cb229-105" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Processing final_delivery_data_it_it.csv: 100%|██████████████████████████████████| 40/40 [02:13&lt;00:00,  3.33s/it]
-Adding Routes: 100%|██████████████████████████████████████████████████████████| 40/40 [00:00&lt;00:00, 41374.15it/s]
-Adding Markers: 100%|█████████████████████████████████████████████████████████| 27/27 [00:00&lt;00:00, 12976.53it/s]</code></pre>
+<pre><code>Processing final_delivery_data_it_it.csv: 100%|██████████████████████████████████| 40/40 [02:13&lt;00:00,  3.34s/it]
+Adding Routes: 100%|███████████████████████████████████████████████████████████| 40/40 [00:00&lt;00:00, 1357.00it/s]
+Adding Departure Markers: 100%|███████████████████████████████████████████████████| 3/3 [00:00&lt;00:00, 458.24it/s]
+Adding Arrival Markers: 100%|██████████████████████████████████████████████████| 24/24 [00:00&lt;00:00, 2529.55it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample map successfully created: final_delivery_data_it_it_sample.html</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Processing final_delivery_data_us_us.csv: 100%|██████████████████████████████████| 40/40 [02:00&lt;00:00,  3.01s/it]
-Adding Routes: 100%|██████████████████████████████████████████████████████████| 38/38 [00:00&lt;00:00, 29897.50it/s]
-Adding Markers: 100%|█████████████████████████████████████████████████████████| 49/49 [00:00&lt;00:00, 23981.43it/s]</code></pre>
+<pre><code>Processing final_delivery_data_us_us.csv: 100%|██████████████████████████████████| 40/40 [02:10&lt;00:00,  3.25s/it]
+Adding Routes: 100%|███████████████████████████████████████████████████████████| 38/38 [00:00&lt;00:00, 8530.94it/s]
+Adding Departure Markers: 100%|████████████████████████████████████████████████| 22/22 [00:00&lt;00:00, 3127.11it/s]
+Adding Arrival Markers: 100%|██████████████████████████████████████████████████| 27/27 [00:00&lt;00:00, 1901.92it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample map successfully created: final_delivery_data_us_us_sample.html</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Processing final_delivery_data_mixed.csv: 100%|██████████████████████████████████| 40/40 [01:59&lt;00:00,  2.99s/it]
-Adding Routes: 100%|██████████████████████████████████████████████████████████| 39/39 [00:00&lt;00:00, 39170.94it/s]
-Adding Markers: 100%|█████████████████████████████████████████████████████████| 39/39 [00:00&lt;00:00, 17828.65it/s]</code></pre>
+<pre><code>Processing final_delivery_data_mixed.csv: 100%|██████████████████████████████████| 40/40 [02:10&lt;00:00,  3.26s/it]
+Adding Routes: 100%|██████████████████████████████████████████████████████████| 39/39 [00:00&lt;00:00, 42787.83it/s]
+Adding Departure Markers: 100%|██████████████████████████████████████████████████| 2/2 [00:00&lt;00:00, 3218.96it/s]
+Adding Arrival Markers: 100%|█████████████████████████████████████████████████| 37/37 [00:00&lt;00:00, 13535.91it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sample map successfully created: final_delivery_data_mixed_sample.html</code></pre>
