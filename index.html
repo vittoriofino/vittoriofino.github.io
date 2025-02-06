@@ -59,35 +59,6 @@
             justify-content: center;
         }
 
-        .button {
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .primary {
-            background: white;
-            color: #7e22ce;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .secondary {
-            border: 2px solid white;
-            color: white;
-        }
-
-        .secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
         .projects {
             padding: 6rem 2rem;
             max-width: 1200px;
@@ -131,18 +102,41 @@
             line-height: 1.6;
         }
 
-        .project-card a {
-            color: #9333ea;
-            text-decoration: none;
-            display: inline-block;
-            margin-right: 1rem;
-            margin-top: 1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
+        .project-card .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
 
-        .project-card a:hover {
-            color: #7e22ce;
+        .project-button {
+            display: inline-block;
+            padding: 0.75rem 1.25rem;
+            background-color: #9333ea;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            box-shadow: 0 2px 4px rgba(147, 51, 234, 0.2);
+        }
+
+        .project-button:hover {
+            background-color: #7e22ce;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(147, 51, 234, 0.3);
+        }
+
+        .project-button::after {
+            content: " →";
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .project-button:hover::after {
+            transform: translateX(4px);
         }
 
         .about {
@@ -196,6 +190,11 @@
             .project-grid {
                 grid-template-columns: 1fr;
             }
+
+            .project-button {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -211,28 +210,36 @@
             <div class="project-card">
                 <h3>Analisi Dataset Titanic</h3>
                 <p>Manipolazione e analisi del dataset di addestramento del Titanic, disponibile su Kaggle, per identificare le caratteristiche del passeggero 'ideale' che avrebbe avuto le maggiori probabilità di sopravvivere al naufragio.</p>
-                <a target="_blank" rel="noopener noreferrer" href="./titanic/titanic.html">Vedi progetto →</a>
+                <div class="button-container">
+                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./titanic/titanic.html">Vedi Notebook</a>
+                </div>
             </div>
             <div class="project-card">
                 <h3>Analisi Dataset Galton</h3>
                 <p>Manipolazione e analisi del dataset di Galton, disponibile online, per esplorare la relazione tra l'altezza dei genitori e quella dei figli, e per identificare eventuali pattern e tendenze che possano descrivere meglio la variabilità dell'altezza nelle generazioni.</p>  
-                <a target="_blank" rel="noopener noreferrer" href="./galton/galton.html">Vedi progetto →</a>
+                <div class="button-container">
+                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./galton/galton.html">Vedi Notebook</a>
+                </div>
             </div>
             <div class="project-card">
                 <h3>Analisi Dataset News (CRIME)</h3>
                 <p>Manipolazione e analisi di un dataset riguardante le notizie americane dal 2012 al 2022, concentrata sulla categoria "CRIME". Estraendo il sentiment delle notizie e analizzando l'andamento di questo sentiment nel corso degli anni, per trovare eventuali tendenze e pattern che possano descrivere come la percezione delle notizie criminologiche sia cambiata nel tempo.</p>  
-                <a target="_blank" rel="noopener noreferrer" href="./notizie/notebook_sentiment.html">Vedi notebook sentiment →</a>
-                <a target="_blank" rel="noopener noreferrer" href="./notizie/notebook_graphs.html">Vedi notebook analisi e grafici →</a>
-                <a target="_blank" href="./pdf/Infografica_News.pdf">Vedi infografica →</a>
+                <div class="button-container">
+                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./notizie/notebook_sentiment.html">Vedi notebook sentiment</a>
+                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./notizie/notebook_graphs.html">Vedi notebook analisi e grafici</a>
+                    <a class="project-button" target="_blank" href="./pdf/Infografica_News.pdf">Vedi infografica</a>
+                </div>
             </div>
             <div class="project-card">
                 <h3>Analisi Dataset Tesisquare (logistica)</h3>
                 <p>Manipolazione di un dataset riguardante la logistica inerente alla spedizione di pacchi in italia e negli stati uniti per estrapolare dati utili.</p>  
-                <a target="_blank" href="./tesisquare_progetto/Tesisquare_analysis.html">Vedi Notebook →</a>
-                <a target="_blank" href="./tesisquare_progetto/final_delivery_data_it_it_sample.html">Vedi Mappa it-it →</a>
-                <a target="_blank" href="./tesisquare_progetto/final_delivery_data_us_us_sample.html">Vedi Mappa us-us →</a>
-                <a target="_blank" href="./tesisquare_progetto/final_delivery_data_mixed_sample.html">Vedi Mappa it-us →</a>
-                <a target="_blank" href="https://www.canva.com/design/DAGeN4BSaM8/OACz8tEg_RsuCv9XMxg_pA/view">Vedi Infografica →</a>
+                <div class="button-container">
+                    <a class="project-button" target="_blank" href="./tesisquare_progetto/Tesisquare_analysis.html">Vedi Notebook</a>
+                    <a class="project-button" target="_blank" href="./tesisquare_progetto/final_delivery_data_it_it_sample.html">Vedi Mappa it-it</a>
+                    <a class="project-button" target="_blank" href="./tesisquare_progetto/final_delivery_data_us_us_sample.html">Vedi Mappa us-us</a>
+                    <a class="project-button" target="_blank" href="./tesisquare_progetto/final_delivery_data_mixed_sample.html">Vedi Mappa it-us</a>
+                    <a class="project-button" target="_blank" href="https://www.canva.com/design/DAGeN4BSaM8/OACz8tEg_RsuCv9XMxg_pA/view">Vedi Infografica</a>
+                </div>
             </div>
         </div>
     </section>
