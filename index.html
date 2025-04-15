@@ -1,257 +1,389 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>anDATA !bene - Progetti di Data Science</title>
+    <title>Data Science Team Project</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
+        :root {
+            --primary: #29535A;
+            --secondary: #AC6244;
+            --accent: #AC6244;
+            --text: #333;
+            --bg: #f9f9f9;
+            --light: #ffffff;
+            --dark: #29535A;
+        }
+        
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background-color: #faf5ff;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #7e22ce, #6b21a8);
-            color: white;
-            padding: 8rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(147, 51, 234, 0.3) 0%, rgba(126, 34, 206, 0.3) 100%);
-            z-index: 1;
-        }
-
-        .hero * {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: #f3e8ff;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
-        .projects {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .projects h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #6b21a8;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .project-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(109, 40, 217, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .project-card h3 {
-            color: #7e22ce;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .project-card p {
-            color: #6b7280;
-            margin-bottom: 1.5rem;
+            color: var(--text);
+            background-color: var(--bg);
             line-height: 1.6;
         }
-
-        .project-card .button-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-
-        .project-button {
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+            text-align: right;
+            margin-bottom: 60px; /* Added margin */
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin-left: auto;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .header-dot {
             display: inline-block;
-            padding: 0.75rem 1.25rem;
-            background-color: #9333ea;
+            width: 15px;
+            height: 15px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            margin-right: 10px; /* Changed to margin-right instead of margin-left */
+            vertical-align: middle;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            margin-left: auto;
+            opacity: 0.9;
+        }
+        
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f9f9f9" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,197.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        section {
+            padding: 100px 0; /* Increased padding from 80px to 100px */
+            margin-bottom: 60px; /* Added margin between sections */
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 50px; /* Increased from 40px to 50px */
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+        }
+        
+        .project {
+            background-color: var(--light);
+            padding: 50px; /* Increased from 40px to 50px */
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
             color: white;
             text-decoration: none;
-            border-radius: 0.5rem;
-            font-weight: 500;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-top: 25px; /* Increased from 15px to 25px */
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 0.875rem;
-            box-shadow: 0 2px 4px rgba(147, 51, 234, 0.2);
         }
-
-        .project-button:hover {
-            background-color: #7e22ce;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(147, 51, 234, 0.3);
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
-        .project-button::after {
-            content: " →";
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px; /* Increased from 30px to 40px */
+            margin-top: 40px; /* Increased from 30px to 40px */
+        }
+        
+        .team-member {
+            background-color: var(--light);
+            padding: 35px; /* Increased from 30px to 35px */
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
-            display: inline-block;
         }
-
-        .project-button:hover::after {
-            transform: translateX(4px);
+        
+        .team-member:hover {
+            transform: translateY(-10px);
         }
-
-        .about {
-            background: #f3e8ff;
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #6b21a8;
-        }
-
-        .about p {
-            max-width: 800px;
-            margin: 0 auto;
-            color: #6b7280;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        footer {
-            background: #581c87;
+        
+        .member-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
             color: white;
-            padding: 3rem 2rem;
-            text-align: center;
+            margin: 0 auto 20px; /* Increased bottom margin from 15px to 20px */
         }
-
-        footer h3 {
-            color: #f3e8ff;
-            margin-bottom: 1rem;
+        
+        .member-name {
             font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 8px; /* Increased from 5px to 8px */
         }
-
-        footer p {
-            color: #d8b4fe;
-            margin-top: 0.5rem;
+        
+        .member-role {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 20px; /* Increased from 15px to 20px */
         }
-
+        
+        .contact-info {
+            margin-top: 20px; /* Increased from 15px to 20px */
+            font-size: 0.9rem;
+        }
+        
+        .contact-info a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 0; /* Increased from 30px to 40px */
+            margin-top: 60px; /* Added margin above footer */
+        }
+        
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
+            h1 {
+                font-size: 2rem;
             }
             
-            .button-group {
-                flex-direction: column;
-                align-items: center;
+            header p {
+                font-size: 1rem;
             }
             
-            .project-grid {
+            section {
+                padding: 80px 0; /* Adjusted for mobile */
+                margin-bottom: 40px; /* Adjusted for mobile */
+            }
+            
+            .team-grid {
                 grid-template-columns: 1fr;
             }
+        }
 
-            .project-button {
-                width: 100%;
-                text-align: center;
-            }
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>anDATA !bene</h1>
-        <p>Impariamo la Data Science Insieme</p>
-    </div>
-
-    <section class="projects" id="projects">
-        <h2>Progetti Scolastici</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <h3>Analisi Dataset Titanic</h3>
-                <p>Manipolazione e analisi del dataset di addestramento del Titanic, disponibile su Kaggle, per identificare le caratteristiche del passeggero 'ideale' che avrebbe avuto le maggiori probabilità di sopravvivere al naufragio.</p>
-                <div class="button-container">
-                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./titanic/titanic.html">Vedi Notebook</a>
+    <header>
+        <div class="header-content">
+            <h1 data-aos="fade-left" data-aos-duration="1000"><span class="header-dot"></span>Team DataScience7</h1>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">Exploring and visualizing data to solve real-world problems</p>
+        </div>
+        <div class="waves"></div>
+    </header>
+    
+    <section id="project" class="container">
+        <h2 data-aos="fade-right">Our Project</h2>
+        <div class="project" data-aos="zoom-in" data-aos-duration="1000">
+            <h3>Data Analysis and Visualization</h3>
+            <p>
+                Our team has developed a comprehensive data analysis project focusing on [Your Specific Topic]. 
+                We collected data from multiple sources, cleaned it, and performed explorative analysis to uncover meaningful patterns and insights. 
+                The project demonstrates various data visualization techniques and statistical methods to interpret complex datasets.
+            </p>
+            <p>
+                We utilized Jupyter notebooks for our analysis and Quarto for creating this interactive web page that showcases our results. 
+                The entire workflow is documented thoroughly to ensure reproducibility.
+            </p>
+            <div>
+                <a href="https://github.com/your-team/repo" class="btn" target="_blank">GitHub Repository</a>
+                <a href="path-to-your-notebook.html" class="btn" target="_blank">Interactive Notebook</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="team" class="container">
+        <h2 data-aos="fade-right">Our Team</h2>
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-member" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="member-img">TM</div>
+                <h3 class="member-name">Team Member 1</h3>
+                <p class="member-role">Data Scientist</p>
+                <p>Specializes in statistical analysis and machine learning models. Responsible for feature engineering and model development.</p>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:member1@example.com">member1@example.com</a></p>
+                    <p>GitHub: <a href="https://github.com/member1" target="_blank">@member1</a></p>
                 </div>
             </div>
-            <div class="project-card">
-                <h3>Analisi Dataset Galton</h3>
-                <p>Manipolazione e analisi del dataset di Galton, disponibile online, per esplorare la relazione tra l'altezza dei genitori e quella dei figli, e per identificare eventuali pattern e tendenze che possano descrivere meglio la variabilità dell'altezza nelle generazioni.</p>  
-                <div class="button-container">
-                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./galton/galton.html">Vedi Notebook</a>
+            
+            <!-- Team Member 2 -->
+            <div class="team-member" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="member-img">TM</div>
+                <h3 class="member-name">Team Member 2</h3>
+                <p class="member-role">Data Engineer</p>
+                <p>Expert in data pipeline development and database management. Handled data collection and preprocessing stages.</p>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:member2@example.com">member2@example.com</a></p>
+                    <p>GitHub: <a href="https://github.com/member2" target="_blank">@member2</a></p>
                 </div>
             </div>
-            <div class="project-card">
-                <h3>Analisi Dataset News (CRIME)</h3>
-                <p>Manipolazione e analisi di un dataset riguardante le notizie americane dal 2012 al 2022, concentrata sulla categoria "CRIME". Estraendo il sentiment delle notizie e analizzando l'andamento di questo sentiment nel corso degli anni, per trovare eventuali tendenze e pattern che possano descrivere come la percezione delle notizie criminologiche sia cambiata nel tempo.</p>  
-                <div class="button-container">
-                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./notizie/notebook_sentiment.html">Vedi notebook sentiment</a>
-                    <a class="project-button" target="_blank" rel="noopener noreferrer" href="./notizie/notebook_graphs.html">Vedi notebook analisi e grafici</a>
-                    <a class="project-button" target="_blank" href="./pdf/Infografica_News.pdf">Vedi infografica</a>
+            
+            <!-- Team Member 3 -->
+            <div class="team-member" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                <div class="member-img">TM</div>
+                <h3 class="member-name">Team Member 3</h3>
+                <p class="member-role">Visualization Specialist</p>
+                <p>Focused on creating intuitive and informative data visualizations. Designed dashboards and interactive charts.</p>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:member3@example.com">member3@example.com</a></p>
+                    <p>GitHub: <a href="https://github.com/member3" target="_blank">@member3</a></p>
                 </div>
             </div>
-            <div class="project-card">
-                <h3>Analisi Dataset Tesisquare (logistica)</h3>
-                <p>Manipolazione di un dataset riguardante la logistica inerente alla spedizione di pacchi in italia e negli stati uniti per estrapolare dati utili.</p>  
-                <div class="button-container">
-                    <a class="project-button" target="_blank" href="./tesisquare_progetto/Tesisquare_analysis.html">Vedi Notebook</a>
-                    <a class="project-button" target="_blank" href="./tesisquare_progetto/final_delivery_data_it_it_sample.html">Vedi Mappa it-it</a>
-                    <a class="project-button" target="_blank" href="./tesisquare_progetto/final_delivery_data_us_us_sample.html">Vedi Mappa us-us</a>
-                    <a class="project-button" target="_blank" href="./tesisquare_progetto/final_delivery_data_mixed_sample.html">Vedi Mappa it-us</a>
-                    <a class="project-button" target="_blank" href="https://www.canva.com/design/DAGeN4BSaM8/OACz8tEg_RsuCv9XMxg_pA/view">Vedi Infografica</a>
+            
+            <!-- Team Member 4 -->
+            <div class="team-member" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                <div class="member-img">TM</div>
+                <h3 class="member-name">Team Member 4</h3>
+                <p class="member-role">Data Analyst</p>
+                <p>Specialized in exploratory data analysis and statistical inference. Focused on extracting actionable insights.</p>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:member4@example.com">member4@example.com</a></p>
+                    <p>GitHub: <a href="https://github.com/member4" target="_blank">@member4</a></p>
+                </div>
+            </div>
+            
+            <!-- Team Member 5 -->
+            <div class="team-member" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                <div class="member-img">TM</div>
+                <h3 class="member-name">Team Member 5</h3>
+                <p class="member-role">Machine Learning Engineer</p>
+                <p>Expert in deep learning and reinforcement learning algorithms. Developed predictive models for the project.</p>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:member5@example.com">member5@example.com</a></p>
+                    <p>GitHub: <a href="https://github.com/member5" target="_blank">@member5</a></p>
+                </div>
+            </div>
+            
+            <!-- Team Member 6 -->
+            <div class="team-member" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+                <div class="member-img">TM</div>
+                <h3 class="member-name">Team Member 6</h3>
+                <p class="member-role">Project Manager</p>
+                <p>Coordinated team efforts and ensured project milestones were met. Handled documentation and presentation materials.</p>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:member6@example.com">member6@example.com</a></p>
+                    <p>GitHub: <a href="https://github.com/member6" target="_blank">@member6</a></p>
+                </div>
+            </div>
+            
+            <!-- Team Member 7 -->
+            <div class="team-member" data-aos="fade-up" data-aos-duration="800" data-aos-delay="700">
+                <div class="member-img">TM</div>
+                <h3 class="member-name">Team Member 7</h3>
+                <p class="member-role">Domain Expert</p>
+                <p>Provided subject matter expertise to guide analysis and interpretation. Helped connect findings to real-world applications.</p>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:member7@example.com">member7@example.com</a></p>
+                    <p>GitHub: <a href="https://github.com/member7" target="_blank">@member7</a></p>
                 </div>
             </div>
         </div>
     </section>
-
-    <section class="about">
-        <h2>Chi Siamo</h2>
-        <p>Siamo un gruppo di studenti che esplora il mondo della data science! Insieme, stiamo imparando come lavorare con i dati, creare visualizzazioni e trovare modelli interessanti nelle informazioni di tutti i giorni. I nostri progetti si concentrano su dati del mondo reale.</p>
-    </section>
-
+    
     <footer>
-        <h3>anDATA !bene</h3>
-        <p>© 2025 Gruppo Scolastico di Data Science</p>
+        <div class="container">
+            <p>&copy; 2025 Team DataScience7. All rights reserved.</p>
+        </div>
     </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+            
+            // Initialize fade-in animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
 </body>
 </html>
